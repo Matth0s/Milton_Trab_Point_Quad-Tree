@@ -20,3 +20,53 @@ Tree::Tree( void ): _root(nullptr) {}
 
 Tree::~Tree( void ) { //deletar recursivamente a arvore
 }
+
+void	Tree::_insert( Point p, Node** node ) {
+
+(void) p;
+(void) node;
+	// if (_root) {
+	// 	_root = new Node(p, Point(0, 0), Point(160, 90), nullptr);
+	// } else {
+
+	// }
+
+}
+
+void	Tree::insert( Point p ) {
+
+	if (this->has(p))
+		return ;
+	if (!_root) {
+		_root = new Node(p, Point(0, 0), Point(160, 90), nullptr);
+	} 
+	// else {
+	// 	this->_insert(p, )
+	// }
+
+}
+
+bool	Tree::_has( Point p, Node* node ) {
+
+	string	direction;
+	
+	if (!node)
+		return (false);
+
+	direction =	node->_center.relativePosition(p);
+	if (direction == "NW")
+		return this->_has(p, node->_northWest);
+	if (direction == "NE")
+		return this->_has(p, node->_northEast);
+	if (direction == "SW")
+		return this->_has(p, node->_southWest);
+	if (direction == "SE")
+		return this->_has(p, node->_southEast);
+	return (true);
+}
+
+bool	Tree::has( Point p ) {
+	if (_root)
+		return this->_has(p, _root);
+	return (false);
+}

@@ -41,9 +41,12 @@ class Node
 		Node( Point center, Point topRight, Point bottomLeft, Node* parent );
 		~Node( void );
 		
-		Node &operator=( const Node &rhs );
+		Node	&operator=( const Node &rhs );
 		
-		// friend ostream &operator<<(ostream &output, const Node &rhs);
+		friend	ostream &operator<<(ostream &output, const Node &rhs);
+		friend	class Tree;
+
+		Node*	relativeDirection( Point p );
 };
 
 #endif

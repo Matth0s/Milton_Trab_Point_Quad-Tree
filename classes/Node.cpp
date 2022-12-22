@@ -55,8 +55,23 @@ Node&	Node::operator=( const Node& rhs )
 	return (*this);
 }
 
-// ostream&	operator<<( ostream& output, const Node& rhs )
-// {
-// 	output << "[" << rhs._x << ", " << rhs._y << "]";
-// 	return (output);
-// }
+ostream&	operator<<( ostream& output, const Node& rhs )
+{
+	output << rhs._center;
+	return (output);
+}
+
+Node*	Node::relativeDirection( Point p ) {
+
+	string	direction = _center.relativePosition(p);
+
+	if (direction == "NW")
+		return (_northWest);
+	if (direction == "NE")
+		return (_northEast);
+	if (direction == "SW")
+		return (_southWest);
+	if (direction == "SE")
+		return (_southEast);
+	return (this);
+}

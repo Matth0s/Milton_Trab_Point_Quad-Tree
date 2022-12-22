@@ -26,7 +26,7 @@ class Point
 
 		double	_x;
 		double	_y;
-
+	
 	public:
 
 		Point( void );
@@ -40,7 +40,7 @@ class Point
 		double	getX( void );
 		double	getY( void );
 		
-		string	posRel( Point p );
+		string	relativePosition( Point p );
 };
 
 #endif

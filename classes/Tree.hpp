@@ -25,13 +25,16 @@ class Tree
 
 		Node*	_root;
 
+		void	_insert( Point p, Node** node );
+		bool	_has( Point p, Node* node );
+
 	public: 
 
 		Tree( void );
 		~Tree( void );
 
-		// void	insert( Point p );
-		// bool	has( Point p );
+		void	insert( Point p );
+		bool	has( Point p );
 		// Point*	searchWindow( Point p );
 		// Point*	SearchDirection( Point p, string direction );
 

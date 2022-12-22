@@ -48,7 +48,7 @@ double	Point::getY( void ) {
 	return (_y);
 }
 
-string	Point::posRel( Point p ) {
+string	Point::relativePosition( Point p ) {
 
 	string	result;
 
@@ -61,6 +61,9 @@ string	Point::posRel( Point p ) {
 		result += "W";
 	else 
 		result += "E";
+
+	if (p._x == _x && p._y == _y)
+		result = "EQUAL";
 
 	return result;
 }
