@@ -6,7 +6,7 @@
 /*   By: Barney e Seus Amigos  <B.S.A@students>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2022/12/23 15:17:33 by Barney e Se      ###   ########.fr       */
+/*   Updated: 2022/12/23 15:59:32 by Barney e Se      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,36 +136,50 @@ void	teste3( void ) {
 
 void	teste4( void ) {
 
-    if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-        cout << "error: " << SDL_GetError() << endl;
-		SDL_Quit();
-    }
+	SDL_Window*	window;
+	SDL_Surface* surface;
 
-    SDL_Window* window = SDL_CreateWindow(
-		"Tutorial", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-		MAXX, MAXY, SDL_WINDOW_SHOWN);
-	if (!window) {
-        cout << "error: " << SDL_GetError() << endl;
+	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+		cout << "error: " << SDL_GetError() << endl;
 		SDL_Quit();
 	}
-
-	SDL_Surface *surface = SDL_GetWindowSurface(window);
+	window = SDL_CreateWindow("Quad-Tree",
+		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, MAXX, MAXY, SDL_WINDOW_SHOWN);
+	if (!window) {
+		cout << "error: " << SDL_GetError() << endl;
+		SDL_Quit();
+	}
+	surface = SDL_GetWindowSurface(window);
 	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 255, 255, 255));
 
+	SDL_Rect	box;
 
-	SDL_Rect box;
-	box.x = 0.32432;
-	box.y = 1.9;
 	box.w = 10;
 	box.h = 10;
+	box.x = MAXX/2 - box.w/2;
+	box.y = MAXY/2 - box.h/2;
 	SDL_FillRect(surface, &box, SDL_MapRGB(surface->format, 0, 0, 0));
-
 	SDL_UpdateWindowSurface(window);
 
-	SDL_Delay(10000);
+	bool	quit = false;
+	while (!quit) {
+		SDL_Event	event;
+		while (SDL_PollEvent(&event)) {
+			switch (event.type) {
+				case SDL_QUIT:
+					quit = true;
+					break;
+				default:
+					break;
+			}
+		}
+	}
+
+
 	SDL_FreeSurface(surface);
-  	SDL_DestroyWindow(window);
-  	SDL_Quit();
+	SDL_DestroyWindow(window);
+	SDL_Quit();
+
 }
 
 int	main(int argc, char *argv[]) {

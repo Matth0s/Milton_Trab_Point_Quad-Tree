@@ -1,15 +1,15 @@
 /* ************************************************************************** */
-/*               ____                  _     _______                          */
-/*              / __ \                | |   |__   __|                         */
-/*             | |  | |_   _  __ _  __| |______| |_ __ ___  ___               */
-/*             | |  | | | | |/ _` |/ _` |______| | '__/ _ \/ _ \              */
-/*             | |__| | |_| | (_| | (_| |      | | | |  __/  __/              */
-/*              \___\_\\__,_|\__,_|\__,_|      |_|_|  \___|\___|              */
 /*                                                                            */
-/*               Felipe Patitucci                   - 120022269               */
-/*               Igor Torres                        - 119034669               */
-/*               Matheus Moreira do Nascimento      - 119042060               */
-/*               Pedro Wong                         - 120076810               */
+/*                                                        :::      ::::::::   */
+/*   Tree.hpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Barney e Seus Amigos  <B.S.A@students>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2022/12/23 16:01:01 by Barney e Se      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 /*               Ruan Felipe da Silva e Sousa       - 119041454               */
 /*                                                                            */
 /* ************************************************************************** */
@@ -17,8 +17,8 @@
 #ifndef TREE_HPP
 #define TREE_HPP
 
-#define MAXX 160
-#define MAXY 90
+#define MAXX 800
+#define MAXY 450
 
 #include "Node.hpp"
 
@@ -34,7 +34,7 @@ class Tree
 		void	_searchWindow( Point topLeft, Point bottomRight, Point* points,
 								int* count, Node* node );
 
-	public: 
+	public:
 
 		Tree( void );
 		~Tree( void );
