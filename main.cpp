@@ -16,8 +16,7 @@
 
 #include "include.hpp"
 
-int	main(void) {
-
+void	testes( void ) {
 	Point p(25, 25);
 
 	cout << Point(1, 3) << "   "
@@ -38,5 +37,19 @@ int	main(void) {
 	cout << (p.relativePosition(Point(25, 30)) == "SE" ? "OK": "ERRO" ) << "  ";
 
 	cout << (p.relativePosition(Point(25, 25)) == "EQUAL" ? "OK": "ERRO" ) << endl; 
+}
+
+int	main(void) {
+
+	// testes();
+	
+
+	Tree QuadTree;
+	QuadTree.insert(Point(80,45));
+	QuadTree.insert(Point(85,50));
+	QuadTree.insert(Point(90,55));
+	QuadTree.insert(Point(30,12));
+	QuadTree.insert(Point(85,22));
+	QuadTree.insert(Point(30.5,50.4));
 	return (0);
 }

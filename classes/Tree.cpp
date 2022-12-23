@@ -18,31 +18,50 @@
 
 Tree::Tree( void ): _root(nullptr) {}
 
-Tree::~Tree( void ) { //deletar recursivamente a arvore
+
+Tree::~Tree( void ) {
+	this->_deleteNode(_root);
 }
 
-void	Tree::_insert( Point p, Node** node ) {
+void	Tree::_deleteNode( Node* node ) {
 
-(void) p;
-(void) node;
-	// if (_root) {
-	// 	_root = new Node(p, Point(0, 0), Point(160, 90), nullptr);
-	// } else {
-
-	// }
+	if (!node)
+		return ;
+	this->_deleteNode(node->_northWest);
+	this->_deleteNode(node->_northEast);
+	this->_deleteNode(node->_southWest);
+	this->_deleteNode(node->_southEast);
+	delete node;
 
 }
 
 void	Tree::insert( Point p ) {
 
-	if (this->has(p))
+	Node*	node;
+	string	direction;
+
+	if (this->has(p) || p.getX() > MAXX || p.getY() > MAXY)
 		return ;
 	if (!_root) {
-		_root = new Node(p, Point(0, 0), Point(160, 90), nullptr);
-	} 
-	// else {
-	// 	this->_insert(p, )
-	// }
+		_root = new Node(p, Point(0, 0), Point(MAXX, MAXY));
+		return ;
+	}
+	
+	node = _root;
+	while (node->relativeDirection(p)) {
+		node = node->relativeDirection(p);
+	}
+	direction = node->_center.relativePosition(p);
+	if (direction == "NW")
+		node->_northWest = new Node(p, node->_topLeft, node->_center);
+	else if (direction == "NE")
+		node->_northEast = new Node(p, Point(node->_center.getX(), node->_topLeft.getY()),
+							Point(node->_bottomRight.getX(), node->_center.getY()));
+	else if (direction == "SW")
+		node->_southWest = new Node(p, Point(node->_topLeft.getX(), node->_center.getY()), 
+							Point(node->_center.getX(), node->_bottomRight.getY()));
+	else
+		node->_southEast = new Node(p, node->_center, node->_bottomRight);
 
 }
 

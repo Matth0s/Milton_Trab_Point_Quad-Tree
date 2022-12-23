@@ -17,20 +17,17 @@
 #include "Node.hpp"
 
 Node::Node( void ): 
-	_center(), _topRight(), _bottomLeft(),
-	_parent(nullptr),
+	_center(), _topLeft(), _bottomRight(),
 	_northWest(nullptr), _northEast(nullptr),
 	_southWest(nullptr), _southEast(nullptr) 
 	{}
 
-Node::Node( const Node& src )
-: Node() 
-{ this->operator=(src); }
+Node::Node( const Node& src ): Node() { 
+	this->operator=(src); 
+}
 
-Node::Node( Point center, Point topRight, Point bottomLeft , Node* parent ):
-	_center(center), _topRight(topRight), _bottomLeft(bottomLeft), 
-	_parent(parent)
-	,
+Node::Node( Point center, Point topLeft, Point bottomRight ):
+	_center(center), _topLeft(topLeft), _bottomRight(bottomRight),
 	_northWest(nullptr), _northEast(nullptr),
 	_southWest(nullptr), _southEast(nullptr)
 	{}
@@ -43,10 +40,9 @@ Node&	Node::operator=( const Node& rhs )
 		return (*this);
 
 	this->_center = rhs._center;
-	this->_topRight = rhs._topRight;
-	this->_bottomLeft = rhs._bottomLeft;
+	this->_topLeft = rhs._topLeft;
+	this->_bottomRight = rhs._bottomRight;
 
-	this->_parent = rhs._parent;
 	this->_northWest = rhs._northWest;
 	this->_northEast = rhs._northEast;
 	this->_southWest = rhs._southWest;
@@ -73,5 +69,5 @@ Node*	Node::relativeDirection( Point p ) {
 		return (_southWest);
 	if (direction == "SE")
 		return (_southEast);
-	return (this);
+	return (_southEast);
 }

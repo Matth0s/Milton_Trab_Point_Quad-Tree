@@ -17,7 +17,11 @@
 #ifndef TREE_HPP
 #define TREE_HPP
 
+#define MAXX 160
+#define MAXY 90
+
 #include "Node.hpp"
+
 
 class Tree
 {
@@ -25,8 +29,8 @@ class Tree
 
 		Node*	_root;
 
-		void	_insert( Point p, Node** node );
 		bool	_has( Point p, Node* node );
+		void	_deleteNode( Node* node );
 
 	public: 
 

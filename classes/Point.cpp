@@ -28,9 +28,8 @@ Point&	Point::operator=( const Point& rhs )
 {
 	if (this == &rhs)
 		return (*this);
-
-	this->_x = rhs._x;
-	this->_y = rhs._y;
+	_x = rhs._x;
+	_y = rhs._y;
 	return (*this);
 }
 
@@ -56,12 +55,10 @@ string	Point::relativePosition( Point p ) {
 		result += "N";
 	else 
 		result += "S";
-
 	if (p._x < _x)
 		result += "W";
 	else 
 		result += "E";
-
 	if (p._x == _x && p._y == _y)
 		result = "EQUAL";
 

@@ -22,13 +22,12 @@
 class Node
 {
 	private:
-		
+
 		Point	_center;
 
-		Point	_topRight;
-		Point	_bottomLeft;
+		Point	_topLeft;
+		Point	_bottomRight;
 
-		Node*	_parent;
 		Node*	_northWest;
 		Node*	_northEast;
 		Node*	_southWest;
@@ -38,7 +37,7 @@ class Node
 	
 		Node( void );
 		Node( const Node &src);
-		Node( Point center, Point topRight, Point bottomLeft, Node* parent );
+		Node( Point center, Point topLeft, Point bottomRight );
 		~Node( void );
 		
 		Node	&operator=( const Node &rhs );
