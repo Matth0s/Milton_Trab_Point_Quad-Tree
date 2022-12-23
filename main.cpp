@@ -74,7 +74,7 @@ void	teste2( void ) {
 	QuadTree.searchWindow(Point(0,0), Point(MAXX, 45));
 	cout << endl;
 	
-	cout << "Lest" << endl;
+	cout << "Leste" << endl;
 	QuadTree.searchWindow(Point(80,0), Point(MAXX, MAXY));
 	cout << endl;
 
@@ -88,11 +88,59 @@ void	teste2( void ) {
 
 }
 
+void	teste3( void ) {
+
+	Tree	QuadTree;
+
+	QuadTree.insert(Point(80,45));
+
+	QuadTree.insert(Point(40, 27.5));
+	QuadTree.insert(Point(120, 27.5));
+	QuadTree.insert(Point(120, 72.5));
+	QuadTree.insert(Point(40, 72.5));
+
+
+	cout << "Primeiro Quadrante" << endl;
+	QuadTree.searchDirection(Point(80,45), "NW");
+	cout << endl;
+	
+	cout << "Segundo Quadrante" << endl;
+	QuadTree.searchDirection(Point(80,45), "NE");
+	cout << endl;
+	
+	cout << "Terceiro Quadrante" << endl;
+	QuadTree.searchDirection(Point(80,45), "SE");
+	cout << endl;
+	
+	cout << "Quanto Quadrante" << endl;
+	QuadTree.searchDirection(Point(80,45), "SW");
+	cout << endl;
+
+	cout << "Norte" << endl;
+	QuadTree.searchDirection(Point(80,45), "N");
+	cout << endl;
+	
+	cout << "Leste" << endl;
+	QuadTree.searchDirection(Point(80,45), "E");
+	cout << endl;
+
+	cout << "Sul" << endl;
+	QuadTree.searchDirection(Point(80,45), "S");
+	cout << endl;
+	
+	cout << "Oeste" << endl;
+	QuadTree.searchDirection(Point(80,45), "W");
+	cout << endl;
+
+}
+
 int	main(void) {
 
 	teste1();
 
 	teste2();
+
+	teste3();
 
 	return (0);
 }

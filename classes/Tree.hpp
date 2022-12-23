@@ -42,7 +42,7 @@ class Tree
 		void	insert( Point p );
 		bool	has( Point p );
 		void	searchWindow( Point topLeft, Point bottomRight );
-		// void	searchDirection( Point p, string direction );
+		void	searchDirection( Point p, string direction );
 
 };
 

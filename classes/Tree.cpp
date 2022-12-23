@@ -18,7 +18,6 @@
 
 Tree::Tree( void ): _root(nullptr), _size(0) {}
 
-
 Tree::~Tree( void ) {
 	this->_deleteNode(_root);
 }
@@ -122,4 +121,26 @@ void	Tree::searchWindow( Point topLeft, Point bottomRight ) {
 
 	delete[] points;
 
+}
+
+void	Tree::searchDirection( Point p, string direction ) {
+
+	if (direction == "N")
+		this->searchWindow(Point(0,0), Point(MAXX,p.getY()));
+	else if (direction == "S")
+		this->searchWindow(Point(0,p.getY()), Point(MAXX,MAXY));
+	else if (direction == "W")
+		this->searchWindow(Point(0,0), Point(p.getX(),MAXY));
+	else if (direction == "E")
+		this->searchWindow(Point(p.getX(),0), Point(MAXX,MAXY));
+	else if (direction == "NW")
+		this->searchWindow(Point(0,0), p);
+	else if (direction == "NE")
+		this->searchWindow(Point(p.getX(),0), Point(MAXX,p.getY()));
+	else if (direction == "SW")
+		this->searchWindow(Point(0,p.getY()), Point(p.getX(),MAXY));
+	else if (direction == "SE")
+		this->searchWindow(p, Point(MAXX,MAXY));
+	else
+		cout << "Not a valid direction" << endl;
 }
