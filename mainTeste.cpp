@@ -43,12 +43,12 @@ void	testeTreeSearchWindow( void ) {
 
 	Tree	QuadTree;
 
-	QuadTree.insert(Point(MAXX/2,MAXY/2));
+	QuadTree.insert(Point(MAXX/2,MAXY/2), NULL);
 
-	QuadTree.insert(Point(MAXX/4, MAXY/4));
-	QuadTree.insert(Point(MAXX/4 * 3,  MAXY/4));
-	QuadTree.insert(Point(MAXX/4 * 3, MAXY/4 * 3));
-	QuadTree.insert(Point(MAXX/4, MAXY/4 * 3));
+	QuadTree.insert(Point(MAXX/4, MAXY/4), NULL);
+	QuadTree.insert(Point(MAXX/4 * 3,  MAXY/4), NULL);
+	QuadTree.insert(Point(MAXX/4 * 3, MAXY/4 * 3), NULL);
+	QuadTree.insert(Point(MAXX/4, MAXY/4 * 3), NULL);
 
 	cout << "Printa Todo Mundo " << endl;
 	QuadTree.searchWindow(Point(0, 0), Point(MAXX, MAXY));
@@ -92,12 +92,12 @@ void	testeTreeSearchDirection( void ) {
 
 	Tree	QuadTree;
 
-	QuadTree.insert(Point(MAXX/2,MAXY/2));
+	QuadTree.insert(Point(MAXX/2,MAXY/2), NULL);
 
-	QuadTree.insert(Point(MAXX/4, MAXY/4));
-	QuadTree.insert(Point(MAXX/4 * 3,  MAXY/4));
-	QuadTree.insert(Point(MAXX/4 * 3, MAXY/4 * 3));
-	QuadTree.insert(Point(MAXX/4, MAXY/4 * 3));
+	QuadTree.insert(Point(MAXX/4, MAXY/4), NULL);
+	QuadTree.insert(Point(MAXX/4 * 3,  MAXY/4), NULL);
+	QuadTree.insert(Point(MAXX/4 * 3, MAXY/4 * 3), NULL);
+	QuadTree.insert(Point(MAXX/4, MAXY/4 * 3), NULL);
 
 
 	cout << "Primeiro Quadrante" << endl;
@@ -183,7 +183,6 @@ void	testeDrawInWindow( void ) {
 			}
 		}
 	}
-
 
 	SDL_FreeSurface(surface);
 	SDL_DestroyWindow(window);

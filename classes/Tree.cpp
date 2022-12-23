@@ -64,36 +64,46 @@ bool	Tree::has( Point p ) {
 }
 
 
-void	Tree::insert( Point p ) {
+bool	Tree::insert( Point p, RenderPoint* renderPoint ) {
 
 	Node*	node;
+	Node*	newNode;
 	string	direction;
 
 	if (this->has(p) || p.getX() > MAXX || p.getY() > MAXY)
-		return ;
+		return (false);
 	if (!_root) {
 		_root = new Node(p, Point(0, 0), Point(MAXX, MAXY));
-		_size++;
-		return ;
+	} else {
+		node = _root;
+		while (node->relativeDirection(p))
+			node = node->relativeDirection(p);
+		direction = node->_center.relativePosition(p);
+		if (direction == "NW") {
+			newNode = new Node(p, node->_topLeft, node->_center);
+			node->_northWest = newNode;
+		} else if (direction == "NE") {
+			newNode = new Node(p,
+				Point(node->_center.getX(), node->_topLeft.getY()),
+				Point(node->_bottomRight.getX(), node->_center.getY()));
+			node->_northEast = newNode;
+		} else if (direction == "SW") {
+			newNode = new Node(p,
+				Point(node->_topLeft.getX(), node->_center.getY()),
+				Point(node->_center.getX(), node->_bottomRight.getY()));
+			node->_southWest = newNode;
+		} else {
+			newNode = new Node(p, node->_center, node->_bottomRight);
+			node->_southEast = newNode;
+		}
 	}
-
-	node = _root;
-	while (node->relativeDirection(p)) {
-		node = node->relativeDirection(p);
+	if (renderPoint) {
+		renderPoint->center = newNode->_center;
+		renderPoint->topLeft = newNode->_topLeft;
+		renderPoint->bottomRight = newNode->_bottomRight;
 	}
-	direction = node->_center.relativePosition(p);
-	if (direction == "NW")
-		node->_northWest = new Node(p, node->_topLeft, node->_center);
-	else if (direction == "NE")
-		node->_northEast = new Node(p, Point(node->_center.getX(), node->_topLeft.getY()),
-							Point(node->_bottomRight.getX(), node->_center.getY()));
-	else if (direction == "SW")
-		node->_southWest = new Node(p, Point(node->_topLeft.getX(), node->_center.getY()),
-							Point(node->_center.getX(), node->_bottomRight.getY()));
-	else
-		node->_southEast = new Node(p, node->_center, node->_bottomRight);
 	_size++;
-
+	return (true);
 }
 
 void	Tree::_searchWindow( Point topLeft, Point bottomRight, Point* points,

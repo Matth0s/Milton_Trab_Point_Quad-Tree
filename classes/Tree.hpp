@@ -22,6 +22,18 @@
 
 #include "Node.hpp"
 
+struct RenderPoint
+{
+	Point	center;
+	Point	topLeft;
+	Point	bottomRight;
+
+	RenderPoint( void ): center(), topLeft(), bottomRight() {};
+	RenderPoint( Point center, Point topLeft, Point bottomRight ):
+		center(center), topLeft(topLeft), bottomRight(bottomRight) {};
+
+};
+
 class Tree
 {
 	private:
@@ -41,7 +53,7 @@ class Tree
 
 		int		size( void );
 		bool	has( Point p );
-		void	insert( Point p );
+		bool	insert( Point p, RenderPoint* renderPoint );
 		void	searchWindow( Point topLeft, Point bottomRight );
 		void	searchDirection( Point p, string direction );
 
