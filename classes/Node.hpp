@@ -24,7 +24,6 @@ class Node
 	private:
 
 		Point	_center;
-
 		Point	_topLeft;
 		Point	_bottomRight;
 

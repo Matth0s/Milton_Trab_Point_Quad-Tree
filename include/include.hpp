@@ -14,11 +14,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include.hpp"
+#ifndef INCLUDE_HPP
+#define INCLUDE_HPP
 
-int	main(int argc, char *argv[]) {
-	(void) argc;
-	(void) argv;
+#include <fstream>
+#include <sstream>
 
-	return (0);
-}
+#include "Point.hpp"
+#include "Node.hpp"
+#include "Tree.hpp"
+
+// #include <SDL2/SDL.h>
+// #include <SDL2/SDL_image.h>
+// #include <SDL2/SDL_timer.h>
+
+
+//___________________________________TESTES_____________________________________
+void	testePoint( void );
+void	testeTreeSearchWindow( void );
+void	testeTreeSearchDirection( void );
+// void	drawBox( Sint32 x, Sint32 y, SDL_Surface* surface );
+// void	testeDrawInWindow( void );
+
+
+//________________________________INPUT_HANDLER_________________________________
+int		readFile( string fileName, string *text );
+int		validateFile( string text );
+
+#endif

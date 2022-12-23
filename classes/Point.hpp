@@ -30,6 +30,7 @@ class Point
 	public:
 
 		Point( void );
+		Point( const Point& src );
 		Point( int x, int y );
 		~Point( void );
 

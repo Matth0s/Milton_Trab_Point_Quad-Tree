@@ -14,15 +14,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INCLUDE_HPP
-#define INCLUDE_HPP
+#include "include.hpp"
 
-#include "Point.hpp"
-#include "Node.hpp"
-#include "Tree.hpp"
+int	main(int argc, char *argv[]) {
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_timer.h>
+	string	text;
 
-#endif
+	if (argc != 1) {
+		if (readFile(argv[1], &text)) {
+			cout << "Error in read file, exit code 1" << endl;
+			return (1);
+		}
+	}
+
+	testePoint();
+	testeTreeSearchWindow();
+	testeTreeSearchDirection();
+	// testeDrawInWindow();
+
+	cout << endl;
+	cout << text << endl;
+
+	return (0);
+}
