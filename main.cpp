@@ -16,7 +16,7 @@
 
 #include "include.hpp"
 
-void	testes( void ) {
+void	teste1( void ) {
 	Point p(25, 25);
 
 	cout << Point(1, 3) << "   "
@@ -36,20 +36,63 @@ void	testes( void ) {
 	cout << (p.relativePosition(Point(25, 10)) == "NE" ? "OK": "ERRO" ) << "  ";
 	cout << (p.relativePosition(Point(25, 30)) == "SE" ? "OK": "ERRO" ) << "  ";
 
-	cout << (p.relativePosition(Point(25, 25)) == "EQUAL" ? "OK": "ERRO" ) << endl; 
+	cout << (p.relativePosition(Point(25, 25)) == "EQUAL" ? "OK": "ERRO" ) << endl << endl << endl; 
+}
+
+void	teste2( void ) {
+
+	Tree	QuadTree;
+
+	QuadTree.insert(Point(80,45));
+
+	QuadTree.insert(Point(40, 27.5));
+	QuadTree.insert(Point(120, 27.5));
+	QuadTree.insert(Point(120, 72.5));
+	QuadTree.insert(Point(40, 72.5));
+
+	cout << "Printa Todo Mundo " << endl;
+	QuadTree.searchWindow(Point(0,0), Point(MAXX, MAXY));
+	cout << endl;
+	
+	cout << "Primeiro Quadrante" << endl;
+	QuadTree.searchWindow(Point(0,0), Point(80, 45));
+	cout << endl;
+	
+	cout << "Segundo Quadrante" << endl;
+	QuadTree.searchWindow(Point(80,0), Point(MAXX, 45));
+	cout << endl;
+	
+	cout << "Terceiro Quadrante" << endl;
+	QuadTree.searchWindow(Point(80,45), Point(MAXX, MAXY));
+	cout << endl;
+	
+	cout << "Quanto Quadrante" << endl;
+	QuadTree.searchWindow(Point(0,45), Point(80, MAXY));
+	cout << endl;
+
+	cout << "Norte" << endl;
+	QuadTree.searchWindow(Point(0,0), Point(MAXX, 45));
+	cout << endl;
+	
+	cout << "Lest" << endl;
+	QuadTree.searchWindow(Point(80,0), Point(MAXX, MAXY));
+	cout << endl;
+
+	cout << "Sul" << endl;
+	QuadTree.searchWindow(Point(0,45), Point(MAXX, MAXY));
+	cout << endl;
+	
+	cout << "Oeste" << endl;
+	QuadTree.searchWindow(Point(0,0), Point(80, MAXY));
+	cout << endl;
+
 }
 
 int	main(void) {
 
-	// testes();
-	
+	teste1();
 
-	Tree QuadTree;
-	QuadTree.insert(Point(80,45));
-	QuadTree.insert(Point(85,50));
-	QuadTree.insert(Point(90,55));
-	QuadTree.insert(Point(30,12));
-	QuadTree.insert(Point(85,22));
-	QuadTree.insert(Point(30.5,50.4));
+	teste2();
+
 	return (0);
 }

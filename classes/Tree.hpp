@@ -22,15 +22,17 @@
 
 #include "Node.hpp"
 
-
 class Tree
 {
 	private:
 
 		Node*	_root;
+		int		_size;
 
-		bool	_has( Point p, Node* node );
 		void	_deleteNode( Node* node );
+		bool	_has( Point p, Node* node );
+		void	_searchWindow( Point topLeft, Point bottomRight, Point* points,
+								int* count, Node* node );
 
 	public: 
 
@@ -39,8 +41,8 @@ class Tree
 
 		void	insert( Point p );
 		bool	has( Point p );
-		// Point*	searchWindow( Point p );
-		// Point*	SearchDirection( Point p, string direction );
+		void	searchWindow( Point topLeft, Point bottomRight );
+		// void	searchDirection( Point p, string direction );
 
 };
 

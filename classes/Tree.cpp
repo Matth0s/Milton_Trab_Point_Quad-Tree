@@ -16,7 +16,7 @@
 
 #include "Tree.hpp"
 
-Tree::Tree( void ): _root(nullptr) {}
+Tree::Tree( void ): _root(nullptr), _size(0) {}
 
 
 Tree::~Tree( void ) {
@@ -44,6 +44,7 @@ void	Tree::insert( Point p ) {
 		return ;
 	if (!_root) {
 		_root = new Node(p, Point(0, 0), Point(MAXX, MAXY));
+		_size++;
 		return ;
 	}
 	
@@ -62,6 +63,7 @@ void	Tree::insert( Point p ) {
 							Point(node->_center.getX(), node->_bottomRight.getY()));
 	else
 		node->_southEast = new Node(p, node->_center, node->_bottomRight);
+	_size++;
 
 }
 
@@ -88,4 +90,36 @@ bool	Tree::has( Point p ) {
 	if (_root)
 		return this->_has(p, _root);
 	return (false);
+}
+
+void	Tree::_searchWindow( Point topLeft, Point bottomRight, Point* points, 
+								int* count , Node* node) {
+	if (!node)
+		return ;
+
+	this->_searchWindow(topLeft, bottomRight, points, count, node->_northWest);
+	this->_searchWindow(topLeft, bottomRight, points, count, node->_northEast);
+	this->_searchWindow(topLeft, bottomRight, points, count, node->_southWest);
+	this->_searchWindow(topLeft, bottomRight, points, count, node->_southEast);
+
+	if (topLeft.getX() <= node->_center.getX() 
+			&& bottomRight.getX() >= node->_center.getX() 
+			&& topLeft.getY() <= node->_center.getY() 
+			&& bottomRight.getY() >= node->_center.getY())
+		points[(*count)++] = node->_center;
+}
+
+void	Tree::searchWindow( Point topLeft, Point bottomRight ) {
+	
+	Point*	points = new Point[_size];
+	int		count = 0;
+
+	this->_searchWindow(topLeft, bottomRight, points, &count, _root);
+
+	while (count-- > 0)
+		cout << points[count] << "  ";
+	cout << endl;
+
+	delete[] points;
+
 }
