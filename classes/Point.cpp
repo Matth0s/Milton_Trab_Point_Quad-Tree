@@ -18,8 +18,6 @@
 
 Point::Point( void ): _x(0), _y(0) {}
 
-Point::Point( const Point& src ): _x(src._x), _y(src._y) {}
-
 Point::Point( double x, double y ): _x(x), _y(y) {}
 
 Point::~Point( void ) {}
@@ -53,11 +51,11 @@ string	Point::relativePosition( Point p ) {
 
 	if (p._y < _y)
 		result += "N";
-	else 
+	else
 		result += "S";
 	if (p._x < _x)
 		result += "W";
-	else 
+	else
 		result += "E";
 	if (p._x == _x && p._y == _y)
 		result = "EQUAL";

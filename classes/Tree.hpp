@@ -39,8 +39,9 @@ class Tree
 		Tree( void );
 		~Tree( void );
 
-		void	insert( Point p );
+		int		size( void );
 		bool	has( Point p );
+		void	insert( Point p );
 		void	searchWindow( Point topLeft, Point bottomRight );
 		void	searchDirection( Point p, string direction );
 

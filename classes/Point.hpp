@@ -26,11 +26,10 @@ class Point
 
 		double	_x;
 		double	_y;
-	
+
 	public:
 
 		Point( void );
-		Point( const Point& src );
 		Point( double x, double y );
 		~Point( void );
 
@@ -39,7 +38,7 @@ class Point
 
 		double	getX( void );
 		double	getY( void );
-		
+
 		string	relativePosition( Point p );
 };
 

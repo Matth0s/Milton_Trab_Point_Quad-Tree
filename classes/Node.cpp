@@ -16,15 +16,11 @@
 
 #include "Node.hpp"
 
-Node::Node( void ): 
+Node::Node( void ):
 	_center(), _topLeft(), _bottomRight(),
 	_northWest(nullptr), _northEast(nullptr),
-	_southWest(nullptr), _southEast(nullptr) 
+	_southWest(nullptr), _southEast(nullptr)
 	{}
-
-Node::Node( const Node& src ): Node() { 
-	this->operator=(src); 
-}
 
 Node::Node( Point center, Point topLeft, Point bottomRight ):
 	_center(center), _topLeft(topLeft), _bottomRight(bottomRight),

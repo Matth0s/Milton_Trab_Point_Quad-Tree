@@ -34,14 +34,13 @@ class Node
 		Node*	_southEast;
 
 	public:
-	
+
 		Node( void );
-		Node( const Node &src);
 		Node( Point center, Point topLeft, Point bottomRight );
 		~Node( void );
-		
+
 		Node	&operator=( const Node &rhs );
-		
+
 		friend	ostream &operator<<(ostream &output, const Node &rhs);
 		friend	class Tree;
 
