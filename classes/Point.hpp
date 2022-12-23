@@ -24,20 +24,20 @@ class Point
 {
 	private:
 
-		double	_x;
-		double	_y;
+		int	_x;
+		int	_y;
 
 	public:
 
 		Point( void );
-		Point( double x, double y );
+		Point( int x, int y );
 		~Point( void );
 
 		Point&	operator=( const Point& rhs );
 		friend	ostream&	operator<<( ostream& output, const Point& rhs );
 
-		double	getX( void );
-		double	getY( void );
+		int	getX( void );
+		int	getY( void );
 
 		string	relativePosition( Point p );
 };

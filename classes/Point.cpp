@@ -18,7 +18,7 @@
 
 Point::Point( void ): _x(0), _y(0) {}
 
-Point::Point( double x, double y ): _x(x), _y(y) {}
+Point::Point( int x, int y ): _x(x), _y(y) {}
 
 Point::~Point( void ) {}
 
@@ -37,11 +37,11 @@ ostream&	operator<<( ostream& output, const Point& rhs )
 	return (output);
 }
 
-double	Point::getX( void ) {
+int	Point::getX( void ) {
 	return (_x);
 }
 
-double	Point::getY( void ) {
+int	Point::getY( void ) {
 	return (_y);
 }
 
