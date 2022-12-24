@@ -17,8 +17,8 @@
 #ifndef TREE_HPP
 # define TREE_HPP
 
-# define MAXX 800
-# define MAXY 450
+# define WIDTH 800
+# define HEIGHT 450
 
 # include "Node.hpp"
 
@@ -45,8 +45,8 @@ class Tree
 		bool	_has( Point p, Node* node );
 		void	_searchWindow( Point topLeft, Point bottomRight, Point* points,
 								int* count, Node* node );
-
 		void	_getRenderPoints( RenderPoint* points, int* count, Node* node );
+
 	public:
 
 		Tree( void );

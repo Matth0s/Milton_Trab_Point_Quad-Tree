@@ -20,13 +20,13 @@ int	main(int argc, char *argv[]) {
 
 	(void) argc;
 	(void) argv;
-	// testePoint();
-	// testeTreeSearchWindow();
-	// testeTreeSearchDirection();
+	testePoint();
+	testeTreeSearchWindow();
+	testeTreeSearchDirection();
 	// testeDrawInWindow();
-	// testeReadFile(argc, argv);
-	// testeTreeByInputFile(argc, argv);
-	// testeGetRenderPoints(argc, argv);
+	testeReadFile(argc, argv);
+	testeTreeByInputFile(argc, argv);
+	testeGetRenderPoints(argc, argv);
 	// testeWindow();
 	testeWindowFileInput(argc, argv);
 

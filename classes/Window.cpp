@@ -17,7 +17,7 @@
 # include "Window.hpp"
 
 Window::Window( void ):
-	_title(), _width(MAXX + 20), _height(MAXY + 20), _closed(false),
+	_title(), _width(WIDTH + 20), _height(HEIGHT + 20), _closed(false),
 	_tree(nullptr),
 	_window(nullptr), _renderer(nullptr) {
 
@@ -76,7 +76,7 @@ void	Window::_handleKeyDown( SDL_Keycode key ) {
 	switch (key) {
 		case SDLK_p:
 			if (_tree)
-				_tree->searchWindow(Point(0, 0), Point(MAXX, MAXY));
+				_tree->searchWindow(Point(0, 0), Point(WIDTH, HEIGHT));
 			break;
 		case SDLK_ESCAPE:
 			_closed = true;
@@ -90,9 +90,16 @@ void	Window::_handleKeyDown( SDL_Keycode key ) {
 void	Window::pollEvents( void ) {
 
 	SDL_Event	event;
+	RenderPoint	point;
 
 	if (SDL_PollEvent(&event)) {
 		switch (event.type) {
+			case SDL_MOUSEBUTTONDOWN:
+				if (_tree->insert(Point(event.button.x - 10, event.button.y - 10), &point)) {
+					this->_drawPoint(point);
+					cout << point.center << endl;
+				}
+				break;
 			case SDL_KEYDOWN:
 				this->_handleKeyDown(event.key.keysym.sym);
 				break;
@@ -160,7 +167,7 @@ void	Window::_drawTree( void ) {
 	RenderPoint*	points = _tree->getRenderPoints();
 	int				size = _tree->size();
 
-	while (size--)
+	while (size-- > 0)
 		this->_drawPoint(points[size]);
 	delete[] points;
 
