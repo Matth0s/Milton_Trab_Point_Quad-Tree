@@ -25,6 +25,9 @@
 # include "Tree.hpp"
 # include "Window.hpp"
 
+//________________________________INPUT_HANDLER_________________________________
+int		getPointsInput( int argc, char *argv[], string *points );
+
 //___________________________________TESTES_____________________________________
 void	testePoint( void );
 void	testeTreeSearchWindow( void );
@@ -35,10 +38,6 @@ void	testeReadFile( int argc, char *argv[] );
 void	testeTreeByInputFile( int argc, char *argv[] );
 void	testeGetRenderPoints( int argc, char *argv[] );
 void	testeWindow( void );
-
-
-//________________________________INPUT_HANDLER_________________________________
-int		readFile( string fileName, string* text );
-int		validateFile( string* text );
+void	testeWindowFileInput( int argc, char *argv[] );
 
 #endif

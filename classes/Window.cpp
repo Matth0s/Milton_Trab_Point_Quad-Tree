@@ -59,28 +59,11 @@ int		Window::_init( void ) {
 		cout << "error: " << SDL_GetError() << endl;
 		return (3);
 	}
-
-	SDL_Rect	box;
-
 	SDL_SetRenderDrawColor(_renderer, 255, 255, 255, 255);
 	SDL_RenderClear(_renderer);
-	SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
-	box.w = _width - 16;
-	box.h = 5;
-	box.x = _width/2 - box.w/2;
-	box.y = 10 - box.h/2;
-	SDL_RenderFillRect(_renderer, &box);
-	box.y = _height - 10 - box.h/2;
-	SDL_RenderFillRect(_renderer, &box);
-	box.w = 5;
-	box.h = _height - 16;
-	box.y = _height/2 - box.h/2;
-	box.x = 10 - box.w/2;
-	SDL_RenderFillRect(_renderer, &box);
-	box.x = _width - 10 - box.w/2;
-	SDL_RenderFillRect(_renderer, &box);
 	SDL_RenderPresent(_renderer);
-
+	this->_drawBorder();
+	this->_drawTree();
 	return (0);
 }
 
@@ -120,5 +103,65 @@ void	Window::pollEvents( void ) {
 				break;
 		}
 	}
+
+}
+
+void	Window::_drawBorder( void ) {
+
+	SDL_Rect	box;
+
+	SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
+	box.w = _width - 16;
+	box.h = 5;
+	box.x = _width/2 - box.w/2;
+	box.y = 10 - box.h/2;
+	SDL_RenderFillRect(_renderer, &box);
+	box.y = _height - 10 - box.h/2;
+	SDL_RenderFillRect(_renderer, &box);
+	box.w = 5;
+	box.h = _height - 16;
+	box.y = _height/2 - box.h/2;
+	box.x = 10 - box.w/2;
+	SDL_RenderFillRect(_renderer, &box);
+	box.x = _width - 10 - box.w/2;
+	SDL_RenderFillRect(_renderer, &box);
+	SDL_RenderPresent(_renderer);
+
+}
+
+void	Window::_drawPoint( RenderPoint point ) {
+
+	SDL_Rect	box;
+
+	SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
+	box.w = point.bottomRight.getX() - point.topLeft.getX();
+	box.h = 3;
+	box.x = point.topLeft.getX() + 10;
+	box.y = point.center.getY() + 10 - box.h/2;
+	SDL_RenderFillRect(_renderer, &box);
+	box.w = 3;
+	box.h = point.bottomRight.getY() - point.topLeft.getY();
+	box.x = point.center.getX() + 10 - box.w/2;
+	box.y = point.topLeft.getY() + 10;
+	SDL_RenderFillRect(_renderer, &box);
+	SDL_RenderPresent(_renderer);
+
+	SDL_SetRenderDrawColor(_renderer, 255, 0, 0, 255);
+	box.w = 5;
+	box.h = 5;
+	box.x = point.center.getX() + 10 - box.w/2;
+	box.y = point.center.getY() + 10 - box.h/2;
+	SDL_RenderFillRect(_renderer, &box);
+	SDL_RenderPresent(_renderer);
+}
+
+void	Window::_drawTree( void ) {
+
+	RenderPoint*	points = _tree->getRenderPoints();
+	int				size = _tree->size();
+
+	while (size--)
+		this->_drawPoint(points[size]);
+	delete[] points;
 
 }

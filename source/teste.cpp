@@ -173,57 +173,33 @@ void	testeDrawInWindow( void ) {
 
 void	testeReadFile( int argc, char *argv[] ) {
 
-	string	text;
+	string	points;
 
-	if (argc != 1) {
-		if (readFile(argv[1], &text)) {
-			cout << "Error in read file, exit code 1" << endl;
-			return ;
-		}
-		if (validateFile(&text)) {
-			cout << "Error in file syntax, exit code 1" << endl;
-			return ;
-		}
-	}
-	cout << "|" << text << "|" << endl;
+	if (getPointsInput(argc, argv, &points))
+		return ;
+	cout << "|" << points << "|" << endl;
 
 }
 
 void	testeTreeByInputFile( int argc, char *argv[] ) {
 
-	string	text;
+	string	points;
 
-	if (argc != 1) {
-		if (readFile(argv[1], &text)) {
-			cout << "Error in read file, exit code 1" << endl;
-			return ;
-		}
-		if (validateFile(&text)) {
-			cout << "Error in file syntax, exit code 1" << endl;
-			return ;
-		}
-	}
+	if (getPointsInput(argc, argv, &points))
+		return ;
 
-	Tree	quadTree(text);
+	Tree	quadTree(points);
 	quadTree.searchWindow(Point(0, 0), Point(MAXX, MAXY));
 }
 
 void	testeGetRenderPoints( int argc, char *argv[] ) {
 
-	string	text;
+	string	inputPoints;
 
-	if (argc != 1) {
-		if (readFile(argv[1], &text)) {
-			cout << "Error in read file, exit code 1" << endl;
-			return ;
-		}
-		if (validateFile(&text)) {
-			cout << "Error in file syntax, exit code 1" << endl;
-			return ;
-		}
-	}
+	if (getPointsInput(argc, argv, &inputPoints))
+		return ;
 
-	Tree	quadTree(text);
+	Tree	quadTree(inputPoints);
 
 	RenderPoint*	points = quadTree.getRenderPoints();
 	int				size = quadTree.size();
@@ -239,6 +215,20 @@ void	testeGetRenderPoints( int argc, char *argv[] ) {
 void	testeWindow( void ) {
 
 	Tree	quadTree;
+	Window	window("teste", MAXX, MAXY, &quadTree);
+
+	while (!window.isClosed())
+		window.pollEvents();
+
+}
+
+void	testeWindowFileInput( int argc, char *argv[] ) {
+
+	string	points;
+
+	if (getPointsInput(argc, argv, &points))
+		return ;
+	Tree	quadTree(points);
 	Window	window("teste", MAXX, MAXY, &quadTree);
 
 	while (!window.isClosed())

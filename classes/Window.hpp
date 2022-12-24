@@ -39,6 +39,10 @@ class Window
 		int		_init( void );
 		void	_handleKeyDown( SDL_Keycode key );
 
+		void	_drawBorder( void );
+		void	_drawPoint( RenderPoint point );
+		void	_drawTree( void );
+
 	public:
 
 		Window( void );
