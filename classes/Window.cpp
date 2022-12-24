@@ -17,16 +17,17 @@
 # include "Window.hpp"
 
 Window::Window( void ):
-	_title(), _width(800), _height(600), _closed(false),
+	_title(), _width(MAXX + 20), _height(MAXY + 20), _closed(false),
+	_tree(nullptr),
 	_window(nullptr), _renderer(nullptr) {
 
 	if (this->_init())
 		_closed = true;
 }
 
-Window::Window( string title, int width, int height ):
-	_title(title), _width(width), _height(height), _closed(false),
-	 _window(nullptr), _renderer(nullptr) {
+Window::Window( string title, int width, int height, Tree* tree ):
+	_title(title), _width(width + 20), _height(height + 20), _closed(false),
+	_tree(tree), _window(nullptr), _renderer(nullptr) {
 
 	if (this->_init())
 		_closed = true;
@@ -59,26 +60,48 @@ int		Window::_init( void ) {
 		return (3);
 	}
 
+	SDL_Rect	box;
+
 	SDL_SetRenderDrawColor(_renderer, 255, 255, 255, 255);
 	SDL_RenderClear(_renderer);
+	SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
+	box.w = _width - 16;
+	box.h = 5;
+	box.x = _width/2 - box.w/2;
+	box.y = 10 - box.h/2;
+	SDL_RenderFillRect(_renderer, &box);
+	box.y = _height - 10 - box.h/2;
+	SDL_RenderFillRect(_renderer, &box);
+	box.w = 5;
+	box.h = _height - 16;
+	box.y = _height/2 - box.h/2;
+	box.x = 10 - box.w/2;
+	SDL_RenderFillRect(_renderer, &box);
+	box.x = _width - 10 - box.w/2;
+	SDL_RenderFillRect(_renderer, &box);
 	SDL_RenderPresent(_renderer);
-
-//	SDL_Rect	box;
-
-//	box.w = 5;
-//	box.h = 5;
-//	box.x = 300 - box.w/2;
-//	box.y = 300 - box.h/2;
-
-//	SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
-//	SDL_RenderFillRect(_renderer, &box);
-//	SDL_RenderPresent(_renderer);
 
 	return (0);
 }
 
 bool	Window::isClosed( void ) {
 	return (_closed);
+}
+
+void	Window::_handleKeyDown( SDL_Keycode key ) {
+
+	switch (key) {
+		case SDLK_p:
+			if (_tree)
+				_tree->searchWindow(Point(0, 0), Point(MAXX, MAXY));
+			break;
+		case SDLK_ESCAPE:
+			_closed = true;
+			break;
+		default:
+			break;
+	}
+
 }
 
 void	Window::pollEvents( void ) {
@@ -88,8 +111,7 @@ void	Window::pollEvents( void ) {
 	if (SDL_PollEvent(&event)) {
 		switch (event.type) {
 			case SDL_KEYDOWN:
-				if (event.key.keysym.sym == SDLK_ESCAPE)
-					_closed = true;
+				this->_handleKeyDown(event.key.keysym.sym);
 				break;
 			case SDL_QUIT:
 				_closed = true;

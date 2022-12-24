@@ -17,13 +17,11 @@
 #ifndef WINDOWS_HPP
 # define WINDOWS_HPP
 
-# include <iostream>
-
 # include <SDL2/SDL.h>
 # include <SDL2/SDL_image.h>
 # include <SDL2/SDL_timer.h>
 
-using namespace std;
+# include "Tree.hpp"
 
 class Window
 {
@@ -34,15 +32,17 @@ class Window
 		int		_height;
 		bool	_closed;
 
+		Tree*			_tree;
 		SDL_Window*		_window;
 		SDL_Renderer*	_renderer;
 
 		int		_init( void );
+		void	_handleKeyDown( SDL_Keycode key );
 
 	public:
 
 		Window( void );
-		Window( string title, int width, int height );
+		Window( string title, int width, int height, Tree* tree);
 		~Window( void );
 
 		bool	isClosed( void );

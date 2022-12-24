@@ -238,7 +238,8 @@ void	testeGetRenderPoints( int argc, char *argv[] ) {
 
 void	testeWindow( void ) {
 
-	Window	window("teste", MAXX, MAXY);
+	Tree	quadTree;
+	Window	window("teste", MAXX, MAXY, &quadTree);
 
 	while (!window.isClosed())
 		window.pollEvents();
