@@ -189,7 +189,7 @@ void	testeReadFile( int argc, char *argv[] ) {
 
 }
 
-void	treeByInputFile( int argc, char *argv[] ) {
+void	testeTreeByInputFile( int argc, char *argv[] ) {
 
 	string	text;
 
@@ -206,4 +206,32 @@ void	treeByInputFile( int argc, char *argv[] ) {
 
 	Tree	quadTree(text);
 	quadTree.searchWindow(Point(0, 0), Point(MAXX, MAXY));
+}
+
+void	testeGetRenderPoints( int argc, char *argv[] ) {
+
+	string	text;
+
+	if (argc != 1) {
+		if (readFile(argv[1], &text)) {
+			cout << "Error in read file, exit code 1" << endl;
+			return ;
+		}
+		if (validateFile(&text)) {
+			cout << "Error in file syntax, exit code 1" << endl;
+			return ;
+		}
+	}
+
+	Tree	quadTree(text);
+
+	RenderPoint*	points = quadTree.getRenderPoints();
+	int				size = quadTree.size();
+
+	while (size--)
+		cout << points[size].center << " | "
+			<< points[size].topLeft << " | "
+			<< points[size].bottomRight << endl;
+
+	delete[] points;
 }

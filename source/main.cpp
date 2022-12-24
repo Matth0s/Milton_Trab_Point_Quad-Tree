@@ -23,7 +23,8 @@ int	main(int argc, char *argv[]) {
 	// testeTreeSearchDirection();
 	// testeDrawInWindow();
 	// testeReadFile(argc, argv);
-	treeByInputFile(argc, argv);
+	// testeTreeByInputFile(argc, argv);
+	testeGetRenderPoints(argc, argv);
 
 	return (0);
 }

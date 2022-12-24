@@ -24,7 +24,7 @@ vpath %.cpp $(SRC_DIR)
 
 NAME	=	quad-tree
 
-CFLAGS	=	-Wall -Wextra -Werror -g3 #-fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror -g3 -fsanitize=address
 
 SDLFLAGS=	`sdl2-config --libs --cflags` -lSDL2_image -lm
 

@@ -25,7 +25,7 @@ Tree::Tree( string points ): _root(nullptr), _size(0) {
 	if (points.size() == 0)
 		return ;
 	while (points.size() != 0) {
-		index = (points.find_first_of(" ") != string::npos) 
+		index = (points.find_first_of(" ") != string::npos)
 				? points.find_first_of(" ") : points.size();
 		this->insert( Point(points.substr(0, index)), NULL );
 		points = points.substr(index + 1, points.size());
@@ -124,12 +124,10 @@ void	Tree::_searchWindow( Point topLeft, Point bottomRight, Point* points,
 								int* count , Node* node) {
 	if (!node)
 		return ;
-
 	this->_searchWindow(topLeft, bottomRight, points, count, node->_northWest);
 	this->_searchWindow(topLeft, bottomRight, points, count, node->_northEast);
 	this->_searchWindow(topLeft, bottomRight, points, count, node->_southWest);
 	this->_searchWindow(topLeft, bottomRight, points, count, node->_southEast);
-
 	if (topLeft.getX() <= node->_center.getX()
 			&& bottomRight.getX() >= node->_center.getX()
 			&& topLeft.getY() <= node->_center.getY()
@@ -143,11 +141,9 @@ void	Tree::searchWindow( Point topLeft, Point bottomRight ) {
 	int		count = 0;
 
 	this->_searchWindow(topLeft, bottomRight, points, &count, _root);
-
 	while (count-- > 0)
 		cout << points[count] << "  ";
 	cout << endl;
-
 	delete[] points;
 
 }
@@ -172,4 +168,28 @@ void	Tree::searchDirection( Point p, string direction ) {
 		this->searchWindow(p, Point(MAXX,MAXY));
 	else
 		cout << "Not a valid direction" << endl;
+}
+
+void	Tree::_getRenderPoints( RenderPoint* points, int* count,
+										 Node* node ) {
+
+	if (!node)
+		return ;
+	this->_getRenderPoints(points, count, node->_northWest);
+	this->_getRenderPoints(points, count, node->_northEast);
+	this->_getRenderPoints(points, count, node->_southWest);
+	this->_getRenderPoints(points, count, node->_southEast);
+
+	points[(*count)++] = RenderPoint(node->_center, node->_topLeft,
+										node->_bottomRight);
+}
+
+RenderPoint*	Tree::getRenderPoints( void ) {
+
+	RenderPoint*	points = new RenderPoint[_size];
+	int		count = 0;
+
+	this->_getRenderPoints(points, &count, _root);
+	return (points);
+
 }
