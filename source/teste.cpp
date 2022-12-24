@@ -115,61 +115,61 @@ void	testeTreeSearchDirection( void ) {
 
 }
 
-// void	drawBox( Sint32 x, Sint32 y, SDL_Surface* surface ) {
+void	drawBox( Sint32 x, Sint32 y, SDL_Surface* surface ) {
 
-// 	SDL_Rect	box;
+	SDL_Rect	box;
 
-// 	box.w = 5;
-// 	box.h = 5;
-// 	box.x = x - box.w/2;
-// 	box.y = y - box.h/2;
+	box.w = 5;
+	box.h = 5;
+	box.x = x - box.w/2;
+	box.y = y - box.h/2;
 
-// 	SDL_FillRect(surface, &box, SDL_MapRGB(surface->format, 0, 0, 0));
+	SDL_FillRect(surface, &box, SDL_MapRGB(surface->format, 0, 0, 0));
 
-// }
+}
 
-// void	testeDrawInWindow( void ) {
+void	testeDrawInWindow( void ) {
 
-// 	SDL_Window*	window;
-// 	SDL_Surface* surface;
+	SDL_Window*	window;
+	SDL_Surface* surface;
 
-// 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-// 		cout << "error: " << SDL_GetError() << endl;
-// 		SDL_Quit();
-// 	}
-// 	window = SDL_CreateWindow("Quad-Tree",
-// 		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, MAXX, MAXY, SDL_WINDOW_SHOWN);
-// 	if (!window) {
-// 		cout << "error: " << SDL_GetError() << endl;
-// 		SDL_Quit();
-// 	}
-// 	surface = SDL_GetWindowSurface(window);
-// 	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 255, 255, 255));
-// 	SDL_UpdateWindowSurface(window);
+	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+		cout << "error: " << SDL_GetError() << endl;
+		SDL_Quit();
+	}
+	window = SDL_CreateWindow("Quad-Tree",
+		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, MAXX, MAXY, SDL_WINDOW_SHOWN);
+	if (!window) {
+		cout << "error: " << SDL_GetError() << endl;
+		SDL_Quit();
+	}
+	surface = SDL_GetWindowSurface(window);
+	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 255, 255, 255));
+	SDL_UpdateWindowSurface(window);
 
-// 	bool	quit = false;
-// 	while (!quit) {
-// 		SDL_Event	event;
-// 		while (SDL_PollEvent(&event)) {
-// 			switch (event.type) {
-// 				case SDL_MOUSEBUTTONDOWN:
-// 					drawBox(event.button.x, event.button.y, surface);
-// 					SDL_UpdateWindowSurface(window);
-// 					break;
-// 				case SDL_QUIT:
-// 					quit = true;
-// 					break;
-// 				default:
-// 					break;
-// 			}
-// 		}
-// 	}
+	bool	quit = false;
+	while (!quit) {
+		SDL_Event	event;
+		while (SDL_PollEvent(&event)) {
+			switch (event.type) {
+				case SDL_MOUSEBUTTONDOWN:
+					drawBox(event.button.x, event.button.y, surface);
+					SDL_UpdateWindowSurface(window);
+					break;
+				case SDL_QUIT:
+					quit = true;
+					break;
+				default:
+					break;
+			}
+		}
+	}
 
-// 	SDL_FreeSurface(surface);
-// 	SDL_DestroyWindow(window);
-// 	SDL_Quit();
+	SDL_FreeSurface(surface);
+	SDL_DestroyWindow(window);
+	SDL_Quit();
 
-// }
+}
 
 void	testeReadFile( int argc, char *argv[] ) {
 
@@ -234,4 +234,13 @@ void	testeGetRenderPoints( int argc, char *argv[] ) {
 			<< points[size].bottomRight << endl;
 
 	delete[] points;
+}
+
+void	testeWindow( void ) {
+
+	Window	window("teste", MAXX, MAXY);
+
+	while (!window.isClosed())
+		window.pollEvents();
+
 }

@@ -14,20 +14,39 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "include.hpp"
+#ifndef WINDOWS_HPP
+# define WINDOWS_HPP
 
-int	main(int argc, char *argv[]) {
+# include <iostream>
 
-	(void) argc;
-	(void) argv;
-	// testePoint();
-	// testeTreeSearchWindow();
-	// testeTreeSearchDirection();
-	// testeDrawInWindow();
-	// testeReadFile(argc, argv);
-	// testeTreeByInputFile(argc, argv);
-	// testeGetRenderPoints(argc, argv);
-	testeWindow();
+# include <SDL2/SDL.h>
+# include <SDL2/SDL_image.h>
+# include <SDL2/SDL_timer.h>
 
-	return (0);
-}
+using namespace std;
+
+class Window
+{
+	private:
+
+		string	_title;
+		int		_width;
+		int		_height;
+		bool	_closed;
+
+		SDL_Window*		_window;
+		SDL_Renderer*	_renderer;
+
+		int		_init( void );
+
+	public:
+
+		Window( void );
+		Window( string title, int width, int height );
+		~Window( void );
+
+		bool	isClosed( void );
+		void	pollEvents( void );
+};
+
+#endif
