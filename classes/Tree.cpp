@@ -20,10 +20,16 @@ Tree::Tree( void ): _root(nullptr), _size(0) {}
 
 Tree::Tree( string points ): _root(nullptr), _size(0) {
 
-	(void) points;
-	// if (points.size())
-	// this->insert( Point(), NULL );
+	size_t	index;
 
+	if (points.size() == 0)
+		return ;
+	while (points.size() != 0) {
+		index = (points.find_first_of(" ") != string::npos) 
+				? points.find_first_of(" ") : points.size();
+		this->insert( Point(points.substr(0, index)), NULL );
+		points = points.substr(index + 1, points.size());
+	}
 }
 
 void	Tree::_deleteNode( Node* node ) {

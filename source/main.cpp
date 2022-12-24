@@ -18,11 +18,12 @@
 
 int	main(int argc, char *argv[]) {
 
-	testePoint();
-	testeTreeSearchWindow();
-	testeTreeSearchDirection();
+	// testePoint();
+	// testeTreeSearchWindow();
+	// testeTreeSearchDirection();
 	// testeDrawInWindow();
-	testeReadFile(argc, argv);
+	// testeReadFile(argc, argv);
+	treeByInputFile(argc, argv);
 
 	return (0);
 }
