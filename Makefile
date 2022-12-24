@@ -12,6 +12,7 @@ SRC		=	main.cpp \
 			Point.cpp \
 			Node.cpp \
 			Tree.cpp \
+			handlerInputFile.cpp \
 			teste.cpp
 
 OBJ_DIR	=	./builds

@@ -35,10 +35,11 @@ void	testeTreeSearchWindow( void );
 void	testeTreeSearchDirection( void );
 // void	drawBox( Sint32 x, Sint32 y, SDL_Surface* surface );
 // void	testeDrawInWindow( void );
+void	testeReadFile( int argc, char *argv[] );
 
 
 //________________________________INPUT_HANDLER_________________________________
-int		readFile( string fileName, string *text );
-int		validateFile( string text );
+int		readFile( string fileName, string* text );
+int		validateFile( string* text );
 
 #endif

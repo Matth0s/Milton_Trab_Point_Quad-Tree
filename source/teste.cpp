@@ -167,24 +167,20 @@ void	testeTreeSearchDirection( void ) {
 
 // }
 
-int		readFile( string fileName, string *text ) {
+void	testeReadFile( int argc, char *argv[] ) {
 
-	std::ifstream		fileIn;
-	std::stringstream	temp;
+	string	text;
 
-	fileIn.open( fileName.c_str(), ifstream::in );
-	if (!fileIn.is_open())
-		return (1);
-	temp << fileIn.rdbuf();
-	*text = temp.str();
-	fileIn.close();
-	return (0);
-}
+	if (argc != 1) {
+		if (readFile(argv[1], &text)) {
+			cout << "Error in read file, exit code 1" << endl;
+			return ;
+		}
+		if (validateFile(&text)) {
+			cout << "Error in file syntax, exit code 1" << endl;
+			return ;
+		}
+	}
+	cout << text << endl;
 
-int		validateFile( string text ) {
-	(void) text;
-// verificar se todos são caracteres validos 32,323 
-// fazer o split e verificar se não tem mais de uma virgula pro palavra
-// mandar pra função que converte isso em um arrai de pontos
-return (0);
 }

@@ -18,22 +18,11 @@
 
 int	main(int argc, char *argv[]) {
 
-	string	text;
-
-	if (argc != 1) {
-		if (readFile(argv[1], &text)) {
-			cout << "Error in read file, exit code 1" << endl;
-			return (1);
-		}
-	}
-
-	testePoint();
-	testeTreeSearchWindow();
-	testeTreeSearchDirection();
+	// testePoint();
+	// testeTreeSearchWindow();
+	// testeTreeSearchDirection();
 	// testeDrawInWindow();
-
-	cout << endl;
-	cout << text << endl;
+	testeReadFile(argc, argv);
 
 	return (0);
 }
