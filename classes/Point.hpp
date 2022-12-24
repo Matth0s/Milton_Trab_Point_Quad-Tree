@@ -15,9 +15,11 @@
 /* ************************************************************************** */
 
 #ifndef POINT_HPP
-#define POINT_HPP
+# define POINT_HPP
 
-#include <iostream>
+# include <iostream>
+# include <cstdlib>
+
 using namespace std;
 
 class Point
@@ -32,6 +34,7 @@ class Point
 		Point( void );
 		Point( const Point& src );
 		Point( int x, int y );
+		Point( string point );
 		~Point( void );
 
 		Point&	operator=( const Point& rhs );

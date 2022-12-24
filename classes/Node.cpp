@@ -14,7 +14,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Node.hpp"
+# include "Node.hpp"
 
 Node::Node( void ):
 	_center(), _topLeft(), _bottomRight(),

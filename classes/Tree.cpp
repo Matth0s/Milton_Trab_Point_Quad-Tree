@@ -14,9 +14,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Tree.hpp"
+# include "Tree.hpp"
 
 Tree::Tree( void ): _root(nullptr), _size(0) {}
+
+Tree::Tree( string points ): _root(nullptr), _size(0) {
+
+	(void) points;
+	// if (points.size())
+	// this->insert( Point(), NULL );
+
+}
 
 void	Tree::_deleteNode( Node* node ) {
 

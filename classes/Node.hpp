@@ -15,9 +15,9 @@
 /* ************************************************************************** */
 
 #ifndef NODE_HPP
-#define NODE_HPP
+# define NODE_HPP
 
-#include "Point.hpp"
+# include "Point.hpp"
 
 class Node
 {

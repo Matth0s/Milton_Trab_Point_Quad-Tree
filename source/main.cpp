@@ -14,13 +14,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include.hpp"
+# include "include.hpp"
 
 int	main(int argc, char *argv[]) {
 
-	// testePoint();
-	// testeTreeSearchWindow();
-	// testeTreeSearchDirection();
+	testePoint();
+	testeTreeSearchWindow();
+	testeTreeSearchDirection();
 	// testeDrawInWindow();
 	testeReadFile(argc, argv);
 

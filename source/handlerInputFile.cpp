@@ -14,7 +14,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include.hpp"
+# include "include.hpp"
 
 static int	validatePoint( string point ) {
 	

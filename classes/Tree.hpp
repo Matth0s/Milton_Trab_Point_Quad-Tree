@@ -15,12 +15,12 @@
 /* ************************************************************************** */
 
 #ifndef TREE_HPP
-#define TREE_HPP
+# define TREE_HPP
 
-#define MAXX 800
-#define MAXY 450
+# define MAXX 800
+# define MAXY 450
 
-#include "Node.hpp"
+# include "Node.hpp"
 
 struct RenderPoint
 {
@@ -49,6 +49,7 @@ class Tree
 	public:
 
 		Tree( void );
+		Tree( string points );
 		~Tree( void );
 
 		int		size( void );

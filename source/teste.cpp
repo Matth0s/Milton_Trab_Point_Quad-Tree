@@ -14,15 +14,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include.hpp"
+# include "include.hpp"
 
 void	testePoint( void ) {
 
 	Point p(25, 25);
 	cout << Point(1, 3) << "   "
 		<< Point(3124, 5433) << "   "
-		<< Point(43, 3543)<< "   "
-		<< Point(1, 323) << endl;
+		<< Point(43, 3543) << "   "
+		<< Point(1, 323) << "   "
+		<< Point("321, 23423") << "   "
+		<< Point("435, 2432") << "   "
+		<< Point("654342, 43234") << "   "
+		<< Point("423234, 5432") << endl;
 	cout << endl;
 	cout << (p.relativePosition(Point(10, 10)) == "NW" ? "OK": "ERRO" ) << "  ";
 	cout << (p.relativePosition(Point(30, 10)) == "NE" ? "OK": "ERRO" ) << "  ";
@@ -181,6 +185,6 @@ void	testeReadFile( int argc, char *argv[] ) {
 			return ;
 		}
 	}
-	cout << text << endl;
+	cout << "|" << text << "|" << endl;
 
 }

@@ -15,18 +15,18 @@
 /* ************************************************************************** */
 
 #ifndef INCLUDE_HPP
-#define INCLUDE_HPP
+# define INCLUDE_HPP
 
-#include <fstream>
-#include <sstream>
+# include <fstream>
+# include <sstream>
 
-#include "Point.hpp"
-#include "Node.hpp"
-#include "Tree.hpp"
+# include "Point.hpp"
+# include "Node.hpp"
+# include "Tree.hpp"
 
-// #include <SDL2/SDL.h>
-// #include <SDL2/SDL_image.h>
-// #include <SDL2/SDL_timer.h>
+// # include <SDL2/SDL.h>
+// # include <SDL2/SDL_image.h>
+// # include <SDL2/SDL_timer.h>
 
 
 //___________________________________TESTES_____________________________________

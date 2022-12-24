@@ -14,13 +14,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Point.hpp"
+# include "Point.hpp"
 
 Point::Point( void ): _x(0), _y(0) {}
 
 Point::Point( const Point& src ): _x(src._x), _y(src._y) {}
 
 Point::Point( int x, int y ): _x(x), _y(y) {}
+
+Point::Point( string point ):
+	_x(atoi(point.substr(0, point.find_first_of(",")).c_str())),
+	_y(atoi(point.substr(point.find_first_of(",") + 1, point.size()).c_str()))
+	{}
 
 Point::~Point( void ) {}
 
