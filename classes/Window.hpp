@@ -14,30 +14,43 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INCLUDE_HPP
-# define INCLUDE_HPP
+#ifndef WINDOWS_HPP
+# define WINDOWS_HPP
 
-# include <fstream>
-# include <sstream>
+# include <SDL2/SDL.h>
+# include <SDL2/SDL_image.h>
+# include <SDL2/SDL_timer.h>
 
-# include "Point.hpp"
-# include "Node.hpp"
 # include "Tree.hpp"
-# include "Window.hpp"
 
-//________________________________INPUT_HANDLER_________________________________
-int		getPointsInput( int argc, char *argv[], string *points );
+class Window
+{
+	private:
 
-//___________________________________TESTES_____________________________________
-void	testePoint( void );
-void	testeTreeSearchWindow( void );
-void	testeTreeSearchDirection( void );
-void	drawBox( Sint32 x, Sint32 y, SDL_Surface* surface );
-void	testeDrawInWindow( void );
-void	testeReadFile( int argc, char *argv[] );
-void	testeTreeByInputFile( int argc, char *argv[] );
-void	testeGetRenderPoints( int argc, char *argv[] );
-void	testeWindow( void );
-void	testeWindowFileInput( int argc, char *argv[] );
+		string	_title;
+		int		_width;
+		int		_height;
+		bool	_closed;
+
+		Tree*			_tree;
+		SDL_Window*		_window;
+		SDL_Renderer*	_renderer;
+
+		int		_init( void );
+		void	_handleKeyDown( SDL_Keycode key );
+
+		void	_drawBorder( void );
+		void	_drawPoint( RenderPoint point );
+		void	_drawTree( void );
+
+	public:
+
+		Window( void );
+		Window( string title, int width, int height, Tree* tree);
+		~Window( void );
+
+		bool	isClosed( void );
+		void	pollEvents( void );
+};
 
 #endif

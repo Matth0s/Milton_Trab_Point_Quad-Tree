@@ -17,7 +17,7 @@
 # include "include.hpp"
 
 static int	validatePoint( string point ) {
-	
+
 	string	x;
 	string	y;
 
@@ -32,7 +32,7 @@ static int	validatePoint( string point ) {
 	return (0);
 }
 
-int		validateFile( string* text ) {
+static int	validateFile( string* text ) {
 
 	string	isSpaces = "\f\n\r\t\v";
 	string	newText;
@@ -46,7 +46,7 @@ int		validateFile( string* text ) {
 
 	while (text->find_first_not_of(" ") != string::npos) {
 		*text = text->substr(text->find_first_not_of(" "), text->size());
-		index = (text->find_first_of(" ") != string::npos) 
+		index = (text->find_first_of(" ") != string::npos)
 				? text->find_first_of(" ") : text->size();
 		substr = text->substr(0, index);
 		if (validatePoint(substr))
@@ -58,7 +58,7 @@ int		validateFile( string* text ) {
 	return (0);
 }
 
-int		readFile( string fileName, string *text ) {
+static int	readFile( string fileName, string *text ) {
 
 	std::ifstream		fileIn;
 	std::stringstream	temp;
@@ -69,5 +69,20 @@ int		readFile( string fileName, string *text ) {
 	temp << fileIn.rdbuf();
 	*text = temp.str();
 	fileIn.close();
+	return (0);
+}
+
+int			getPointsInput( int argc, char *argv[], string *points ) {
+
+	if (argc != 1) {
+		if (readFile(argv[1], points)) {
+			cout << "Error in read file, exit code 1" << endl;
+			return (1);
+		}
+		if (validateFile(points)) {
+			cout << "Error in file syntax, exit code 1" << endl;
+			return (2);
+		}
+	}
 	return (0);
 }

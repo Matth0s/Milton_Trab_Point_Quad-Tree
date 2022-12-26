@@ -44,37 +44,37 @@ void	testeTreeSearchWindow( void ) {
 
 	Tree	quadTree;
 
-	quadTree.insert(Point(MAXX/2,MAXY/2), NULL);
-	quadTree.insert(Point(MAXX/4, MAXY/4), NULL);
-	quadTree.insert(Point(MAXX/4 * 3,  MAXY/4), NULL);
-	quadTree.insert(Point(MAXX/4 * 3, MAXY/4 * 3), NULL);
-	quadTree.insert(Point(MAXX/4, MAXY/4 * 3), NULL);
+	quadTree.insert(Point(WIDTH/2,HEIGHT/2), NULL);
+	quadTree.insert(Point(WIDTH/4, HEIGHT/4), NULL);
+	quadTree.insert(Point(WIDTH/4 * 3,  HEIGHT/4), NULL);
+	quadTree.insert(Point(WIDTH/4 * 3, HEIGHT/4 * 3), NULL);
+	quadTree.insert(Point(WIDTH/4, HEIGHT/4 * 3), NULL);
 	cout << "Printa Todo Mundo " << endl;
-	quadTree.searchWindow(Point(0, 0), Point(MAXX, MAXY));
+	quadTree.searchWindow(Point(0, 0), Point(WIDTH, HEIGHT));
 	cout << endl;
 	cout << "Primeiro Quadrante" << endl;
-	quadTree.searchWindow(Point(0, 0), Point(MAXX/2, MAXY/2));
+	quadTree.searchWindow(Point(0, 0), Point(WIDTH/2, HEIGHT/2));
 	cout << endl;
 	cout << "Segundo Quadrante" << endl;
-	quadTree.searchWindow(Point(MAXX/2, 0), Point(MAXX, MAXY/2));
+	quadTree.searchWindow(Point(WIDTH/2, 0), Point(WIDTH, HEIGHT/2));
 	cout << endl;
 	cout << "Terceiro Quadrante" << endl;
-	quadTree.searchWindow(Point(MAXX/2, MAXY/2), Point(MAXX, MAXY));
+	quadTree.searchWindow(Point(WIDTH/2, HEIGHT/2), Point(WIDTH, HEIGHT));
 	cout << endl;
 	cout << "Quanto Quadrante" << endl;
-	quadTree.searchWindow(Point(0, MAXY/2), Point(MAXX/2, MAXY));
+	quadTree.searchWindow(Point(0, HEIGHT/2), Point(WIDTH/2, HEIGHT));
 	cout << endl;
 	cout << "Norte" << endl;
-	quadTree.searchWindow(Point(0, 0), Point(MAXX, MAXY/2));
+	quadTree.searchWindow(Point(0, 0), Point(WIDTH, HEIGHT/2));
 	cout << endl;
 	cout << "Leste" << endl;
-	quadTree.searchWindow(Point(MAXX/2, 0), Point(MAXX, MAXY));
+	quadTree.searchWindow(Point(WIDTH/2, 0), Point(WIDTH, HEIGHT));
 	cout << endl;
 	cout << "Sul" << endl;
-	quadTree.searchWindow(Point(0, MAXY/2), Point(MAXX, MAXY));
+	quadTree.searchWindow(Point(0, HEIGHT/2), Point(WIDTH, HEIGHT));
 	cout << endl;
 	cout << "Oeste" << endl;
-	quadTree.searchWindow(Point(0, 0), Point(MAXX/2, MAXY));
+	quadTree.searchWindow(Point(0, 0), Point(WIDTH/2, HEIGHT));
 	cout << endl;
 
 }
@@ -82,148 +82,124 @@ void	testeTreeSearchWindow( void ) {
 void	testeTreeSearchDirection( void ) {
 
 	Tree	quadTree;
-	quadTree.insert(Point(MAXX/2,MAXY/2), NULL);
-	quadTree.insert(Point(MAXX/4, MAXY/4), NULL);
-	quadTree.insert(Point(MAXX/4 * 3,  MAXY/4), NULL);
-	quadTree.insert(Point(MAXX/4 * 3, MAXY/4 * 3), NULL);
-	quadTree.insert(Point(MAXX/4, MAXY/4 * 3), NULL);
+	quadTree.insert(Point(WIDTH/2,HEIGHT/2), NULL);
+	quadTree.insert(Point(WIDTH/4, HEIGHT/4), NULL);
+	quadTree.insert(Point(WIDTH/4 * 3,  HEIGHT/4), NULL);
+	quadTree.insert(Point(WIDTH/4 * 3, HEIGHT/4 * 3), NULL);
+	quadTree.insert(Point(WIDTH/4, HEIGHT/4 * 3), NULL);
 
 	cout << "Primeiro Quadrante" << endl;
-	quadTree.searchDirection(Point(MAXX/2, MAXY/2), "NW");
+	quadTree.searchDirection(Point(WIDTH/2, HEIGHT/2), "NW");
 	cout << endl;
 	cout << "Segundo Quadrante" << endl;
-	quadTree.searchDirection(Point(MAXX/2, MAXY/2), "NE");
+	quadTree.searchDirection(Point(WIDTH/2, HEIGHT/2), "NE");
 	cout << endl;
 	cout << "Terceiro Quadrante" << endl;
-	quadTree.searchDirection(Point(MAXX/2, MAXY/2), "SE");
+	quadTree.searchDirection(Point(WIDTH/2, HEIGHT/2), "SE");
 	cout << endl;
 	cout << "Quanto Quadrante" << endl;
-	quadTree.searchDirection(Point(MAXX/2, MAXY/2), "SW");
+	quadTree.searchDirection(Point(WIDTH/2, HEIGHT/2), "SW");
 	cout << endl;
 	cout << "Norte" << endl;
-	quadTree.searchDirection(Point(MAXX/2, MAXY/2), "N");
+	quadTree.searchDirection(Point(WIDTH/2, HEIGHT/2), "N");
 	cout << endl;
 	cout << "Leste" << endl;
-	quadTree.searchDirection(Point(MAXX/2, MAXY/2), "E");
+	quadTree.searchDirection(Point(WIDTH/2, HEIGHT/2), "E");
 	cout << endl;
 	cout << "Sul" << endl;
-	quadTree.searchDirection(Point(MAXX/2, MAXY/2), "S");
+	quadTree.searchDirection(Point(WIDTH/2, HEIGHT/2), "S");
 	cout << endl;
 	cout << "Oeste" << endl;
-	quadTree.searchDirection(Point(MAXX/2, MAXY/2), "W");
+	quadTree.searchDirection(Point(WIDTH/2, HEIGHT/2), "W");
 	cout << endl;
 
 }
 
-// void	drawBox( Sint32 x, Sint32 y, SDL_Surface* surface ) {
+void	drawBox( Sint32 x, Sint32 y, SDL_Surface* surface ) {
 
-// 	SDL_Rect	box;
+	SDL_Rect	box;
 
-// 	box.w = 5;
-// 	box.h = 5;
-// 	box.x = x - box.w/2;
-// 	box.y = y - box.h/2;
+	box.w = 5;
+	box.h = 5;
+	box.x = x - box.w/2;
+	box.y = y - box.h/2;
 
-// 	SDL_FillRect(surface, &box, SDL_MapRGB(surface->format, 0, 0, 0));
+	SDL_FillRect(surface, &box, SDL_MapRGB(surface->format, 0, 0, 0));
 
-// }
+}
 
-// void	testeDrawInWindow( void ) {
+void	testeDrawInWindow( void ) {
 
-// 	SDL_Window*	window;
-// 	SDL_Surface* surface;
+	SDL_Window*	window;
+	SDL_Surface* surface;
 
-// 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-// 		cout << "error: " << SDL_GetError() << endl;
-// 		SDL_Quit();
-// 	}
-// 	window = SDL_CreateWindow("Quad-Tree",
-// 		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, MAXX, MAXY, SDL_WINDOW_SHOWN);
-// 	if (!window) {
-// 		cout << "error: " << SDL_GetError() << endl;
-// 		SDL_Quit();
-// 	}
-// 	surface = SDL_GetWindowSurface(window);
-// 	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 255, 255, 255));
-// 	SDL_UpdateWindowSurface(window);
+	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+		cout << "error: " << SDL_GetError() << endl;
+		SDL_Quit();
+	}
+	window = SDL_CreateWindow("Quad-Tree",
+		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
+	if (!window) {
+		cout << "error: " << SDL_GetError() << endl;
+		SDL_Quit();
+	}
+	surface = SDL_GetWindowSurface(window);
+	SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 255, 255, 255));
+	SDL_UpdateWindowSurface(window);
 
-// 	bool	quit = false;
-// 	while (!quit) {
-// 		SDL_Event	event;
-// 		while (SDL_PollEvent(&event)) {
-// 			switch (event.type) {
-// 				case SDL_MOUSEBUTTONDOWN:
-// 					drawBox(event.button.x, event.button.y, surface);
-// 					SDL_UpdateWindowSurface(window);
-// 					break;
-// 				case SDL_QUIT:
-// 					quit = true;
-// 					break;
-// 				default:
-// 					break;
-// 			}
-// 		}
-// 	}
+	bool	quit = false;
+	while (!quit) {
+		SDL_Event	event;
+		while (SDL_PollEvent(&event)) {
+			switch (event.type) {
+				case SDL_MOUSEBUTTONDOWN:
+					drawBox(event.button.x, event.button.y, surface);
+					SDL_UpdateWindowSurface(window);
+					break;
+				case SDL_QUIT:
+					quit = true;
+					break;
+				default:
+					break;
+			}
+		}
+	}
 
-// 	SDL_FreeSurface(surface);
-// 	SDL_DestroyWindow(window);
-// 	SDL_Quit();
+	SDL_FreeSurface(surface);
+	SDL_DestroyWindow(window);
+	SDL_Quit();
 
-// }
+}
 
 void	testeReadFile( int argc, char *argv[] ) {
 
-	string	text;
+	string	points;
 
-	if (argc != 1) {
-		if (readFile(argv[1], &text)) {
-			cout << "Error in read file, exit code 1" << endl;
-			return ;
-		}
-		if (validateFile(&text)) {
-			cout << "Error in file syntax, exit code 1" << endl;
-			return ;
-		}
-	}
-	cout << "|" << text << "|" << endl;
+	if (getPointsInput(argc, argv, &points))
+		return ;
+	cout << "|" << points << "|" << endl;
 
 }
 
 void	testeTreeByInputFile( int argc, char *argv[] ) {
 
-	string	text;
+	string	points;
 
-	if (argc != 1) {
-		if (readFile(argv[1], &text)) {
-			cout << "Error in read file, exit code 1" << endl;
-			return ;
-		}
-		if (validateFile(&text)) {
-			cout << "Error in file syntax, exit code 1" << endl;
-			return ;
-		}
-	}
+	if (getPointsInput(argc, argv, &points))
+		return ;
 
-	Tree	quadTree(text);
-	quadTree.searchWindow(Point(0, 0), Point(MAXX, MAXY));
+	Tree	quadTree(points);
+	quadTree.searchWindow(Point(0, 0), Point(WIDTH, HEIGHT));
 }
 
 void	testeGetRenderPoints( int argc, char *argv[] ) {
 
-	string	text;
+	string	inputPoints;
 
-	if (argc != 1) {
-		if (readFile(argv[1], &text)) {
-			cout << "Error in read file, exit code 1" << endl;
-			return ;
-		}
-		if (validateFile(&text)) {
-			cout << "Error in file syntax, exit code 1" << endl;
-			return ;
-		}
-	}
+	if (getPointsInput(argc, argv, &inputPoints))
+		return ;
 
-	Tree	quadTree(text);
+	Tree	quadTree(inputPoints);
 
 	RenderPoint*	points = quadTree.getRenderPoints();
 	int				size = quadTree.size();
@@ -234,4 +210,28 @@ void	testeGetRenderPoints( int argc, char *argv[] ) {
 			<< points[size].bottomRight << endl;
 
 	delete[] points;
+}
+
+void	testeWindow( void ) {
+
+	Tree	quadTree;
+	Window	window("teste", WIDTH, HEIGHT, &quadTree);
+
+	while (!window.isClosed())
+		window.pollEvents();
+
+}
+
+void	testeWindowFileInput( int argc, char *argv[] ) {
+
+	string	points;
+
+	if (getPointsInput(argc, argv, &points))
+		return ;
+	Tree	quadTree(points);
+	Window	window("teste", WIDTH, HEIGHT, &quadTree);
+
+	while (!window.isClosed())
+		window.pollEvents();
+
 }

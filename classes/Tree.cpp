@@ -83,11 +83,12 @@ bool	Tree::insert( Point p, RenderPoint* renderPoint ) {
 	Node*	node;
 	Node*	newNode;
 	string	direction;
-
-	if (this->has(p) || p.getX() > MAXX || p.getY() > MAXY)
+	if (this->has(p)
+		|| p.getX() < 0|| p.getX() > WIDTH || p.getX() < 0 || p.getY() > HEIGHT )
 		return (false);
 	if (!_root) {
-		_root = new Node(p, Point(0, 0), Point(MAXX, MAXY));
+		newNode = new Node(p, Point(0, 0), Point(WIDTH, HEIGHT));
+		_root = newNode;
 	} else {
 		node = _root;
 		while (node->relativeDirection(p))
@@ -151,21 +152,21 @@ void	Tree::searchWindow( Point topLeft, Point bottomRight ) {
 void	Tree::searchDirection( Point p, string direction ) {
 
 	if (direction == "N")
-		this->searchWindow(Point(0,0), Point(MAXX,p.getY()));
+		this->searchWindow(Point(0,0), Point(WIDTH,p.getY()));
 	else if (direction == "S")
-		this->searchWindow(Point(0,p.getY()), Point(MAXX,MAXY));
+		this->searchWindow(Point(0,p.getY()), Point(WIDTH,HEIGHT));
 	else if (direction == "W")
-		this->searchWindow(Point(0,0), Point(p.getX(),MAXY));
+		this->searchWindow(Point(0,0), Point(p.getX(),HEIGHT));
 	else if (direction == "E")
-		this->searchWindow(Point(p.getX(),0), Point(MAXX,MAXY));
+		this->searchWindow(Point(p.getX(),0), Point(WIDTH,HEIGHT));
 	else if (direction == "NW")
 		this->searchWindow(Point(0,0), p);
 	else if (direction == "NE")
-		this->searchWindow(Point(p.getX(),0), Point(MAXX,p.getY()));
+		this->searchWindow(Point(p.getX(),0), Point(WIDTH,p.getY()));
 	else if (direction == "SW")
-		this->searchWindow(Point(0,p.getY()), Point(p.getX(),MAXY));
+		this->searchWindow(Point(0,p.getY()), Point(p.getX(),HEIGHT));
 	else if (direction == "SE")
-		this->searchWindow(p, Point(MAXX,MAXY));
+		this->searchWindow(p, Point(WIDTH,HEIGHT));
 	else
 		cout << "Not a valid direction" << endl;
 }

@@ -4,7 +4,8 @@ INCD_DIR=	-I ./include \
 INCD	=	include.hpp \
 			Point.hpp \
 			Node.hpp \
-			Tree.hpp
+			Tree.hpp \
+			Window.hpp
 
 SRC_DIR	=	./source \
 			./classes
@@ -12,6 +13,7 @@ SRC		=	main.cpp \
 			Point.cpp \
 			Node.cpp \
 			Tree.cpp \
+			Window.cpp \
 			handlerInputFile.cpp \
 			teste.cpp
 
@@ -24,7 +26,7 @@ vpath %.cpp $(SRC_DIR)
 
 NAME	=	quad-tree
 
-CFLAGS	=	-Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror -g3 #-fsanitize=address
 
 SDLFLAGS=	`sdl2-config --libs --cflags` -lSDL2_image -lm
 
@@ -34,9 +36,9 @@ CC		=	c++
 #______________________________________//_______________________________________
 all:			$(NAME)
 
-#	$(CC) $(CFLAGS) $(SDLFLAGS) $(OBJ) $(INCD_DIR) -o $(NAME) -lSDL2
+#	$(CC) $(CFLAGS) $(OBJ) $(INCD_DIR) -o $(NAME)
 $(NAME):	$(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(INCD_DIR) -o $(NAME)
+	$(CC) $(CFLAGS) $(SDLFLAGS) $(OBJ) $(INCD_DIR) -o $(NAME) -lSDL2
 	@echo "\033[1;32m"
 	@echo "/ ************************************ \\"
 	@echo "|           quad-tree Criado           |"
@@ -45,8 +47,8 @@ $(NAME):	$(OBJ)
 
 $(OBJ_DIR)/%.o:	%.cpp $(INCD)
 	mkdir -p $(OBJ_DIR)
-	$(CC) -c -o $@ $(CFLAGS) $(INCD_DIR) $<
-#	$(CC) -c -o $@ $(CFLAGS) $(SDLFLAGS) $(INCD_DIR) $<
+	$(CC) -c -o $@ $(CFLAGS) $(SDLFLAGS) $(INCD_DIR) $<
+#	$(CC) -c -o $@ $(CFLAGS) $(INCD_DIR) $<
 #______________________________________//_______________________________________
 clean:
 	$(RM) $(OBJ_DIR)
