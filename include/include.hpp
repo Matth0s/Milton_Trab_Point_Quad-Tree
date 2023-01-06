@@ -36,7 +36,6 @@ void	drawBox( Sint32 x, Sint32 y, SDL_Surface* surface );
 void	testeDrawInWindow( void );
 void	testeReadFile( int argc, char *argv[] );
 void	testeTreeByInputFile( int argc, char *argv[] );
-void	testeGetRenderPoints( int argc, char *argv[] );
 void	testeWindow( void );
 void	testeWindowFileInput( int argc, char *argv[] );
 

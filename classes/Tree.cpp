@@ -32,6 +32,10 @@ Tree::Tree( string points ): _root(nullptr), _size(0) {
 	}
 }
 
+Tree::~Tree( void ) {
+	this->_deleteNode(_root);
+}
+
 void	Tree::_deleteNode( Node* node ) {
 
 	if (!node)
@@ -41,11 +45,6 @@ void	Tree::_deleteNode( Node* node ) {
 	this->_deleteNode(node->_southWest);
 	this->_deleteNode(node->_southEast);
 	delete node;
-
-}
-
-Tree::~Tree( void ) {
-	this->_deleteNode(_root);
 }
 
 int		Tree::size( void ) {
@@ -83,6 +82,7 @@ bool	Tree::insert( Point p, RenderPoint* renderPoint ) {
 	Node*	node;
 	Node*	newNode;
 	string	direction;
+
 	if (this->has(p)
 		|| p.getX() < 0|| p.getX() > WIDTH || p.getX() < 0 || p.getY() > HEIGHT )
 		return (false);
@@ -121,7 +121,14 @@ bool	Tree::insert( Point p, RenderPoint* renderPoint ) {
 	return (true);
 }
 
-void	Tree::_searchWindow( Point topLeft, Point bottomRight, Point* points,
+void	Tree::clear( void ) {
+
+	this->_deleteNode(_root);
+	_root = nullptr;
+	_size = 0;
+}
+
+void	Tree::_searchWindow( Point topLeft, Point bottomRight, RenderPoint* points,
 								int* count , Node* node) {
 	if (!node)
 		return ;
@@ -133,64 +140,37 @@ void	Tree::_searchWindow( Point topLeft, Point bottomRight, Point* points,
 			&& bottomRight.getX() >= node->_center.getX()
 			&& topLeft.getY() <= node->_center.getY()
 			&& bottomRight.getY() >= node->_center.getY())
-		points[(*count)++] = node->_center;
-}
-
-void	Tree::searchWindow( Point topLeft, Point bottomRight ) {
-
-	Point*	points = new Point[_size];
-	int		count = 0;
-
-	this->_searchWindow(topLeft, bottomRight, points, &count, _root);
-	while (count-- > 0)
-		cout << points[count] << "  ";
-	cout << endl;
-	delete[] points;
-
-}
-
-void	Tree::searchDirection( Point p, string direction ) {
-
-	if (direction == "N")
-		this->searchWindow(Point(0,0), Point(WIDTH,p.getY()));
-	else if (direction == "S")
-		this->searchWindow(Point(0,p.getY()), Point(WIDTH,HEIGHT));
-	else if (direction == "W")
-		this->searchWindow(Point(0,0), Point(p.getX(),HEIGHT));
-	else if (direction == "E")
-		this->searchWindow(Point(p.getX(),0), Point(WIDTH,HEIGHT));
-	else if (direction == "NW")
-		this->searchWindow(Point(0,0), p);
-	else if (direction == "NE")
-		this->searchWindow(Point(p.getX(),0), Point(WIDTH,p.getY()));
-	else if (direction == "SW")
-		this->searchWindow(Point(0,p.getY()), Point(p.getX(),HEIGHT));
-	else if (direction == "SE")
-		this->searchWindow(p, Point(WIDTH,HEIGHT));
-	else
-		cout << "Not a valid direction" << endl;
-}
-
-void	Tree::_getRenderPoints( RenderPoint* points, int* count,
-										 Node* node ) {
-
-	if (!node)
-		return ;
-	this->_getRenderPoints(points, count, node->_northWest);
-	this->_getRenderPoints(points, count, node->_northEast);
-	this->_getRenderPoints(points, count, node->_southWest);
-	this->_getRenderPoints(points, count, node->_southEast);
-
-	points[(*count)++] = RenderPoint(node->_center, node->_topLeft,
+		points[(*count)++] = RenderPoint(node->_center, node->_topLeft,
 										node->_bottomRight);
 }
 
-RenderPoint*	Tree::getRenderPoints( void ) {
+RenderPoint*	Tree::searchWindow( Point topLeft, Point bottomRight ) {
 
-	RenderPoint*	points = new RenderPoint[_size];
-	int		count = 0;
+	RenderPoint*	points = new RenderPoint[_size + 1];
+	int				count = 0;
 
-	this->_getRenderPoints(points, &count, _root);
+	this->_searchWindow(topLeft, bottomRight, points, &count, _root);
+	points[count] = RenderPoint(Point(-1,-1), Point(), Point());
 	return (points);
+}
 
+RenderPoint*	Tree::searchDirection( Point p, string direction ) {
+
+	if (direction == "N")
+		return (this->searchWindow(Point(0,0), Point(WIDTH,p.getY())));
+	if (direction == "S")
+		return (this->searchWindow(Point(0,p.getY()), Point(WIDTH,HEIGHT)));
+	if (direction == "W")
+		return (this->searchWindow(Point(0,0), Point(p.getX(),HEIGHT)));
+	if (direction == "E")
+		return (this->searchWindow(Point(p.getX(),0), Point(WIDTH,HEIGHT)));
+	if (direction == "NW")
+		return (this->searchWindow(Point(0,0), p));
+	if (direction == "NE")
+		return (this->searchWindow(Point(p.getX(),0), Point(WIDTH,p.getY())));
+	if (direction == "SW")
+		return (this->searchWindow(Point(0,p.getY()), Point(p.getX(),HEIGHT)));
+	if (direction == "SE")
+		return (this->searchWindow(p, Point(WIDTH,HEIGHT)));
+	return (nullptr);
 }

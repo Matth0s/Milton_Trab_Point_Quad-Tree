@@ -26,7 +26,6 @@ int	main(int argc, char *argv[]) {
 	// testeDrawInWindow();
 	testeReadFile(argc, argv);
 	testeTreeByInputFile(argc, argv);
-	testeGetRenderPoints(argc, argv);
 	// testeWindow();
 	testeWindowFileInput(argc, argv);
 

@@ -43,23 +43,20 @@ class Tree
 
 		void	_deleteNode( Node* node );
 		bool	_has( Point p, Node* node );
-		void	_searchWindow( Point topLeft, Point bottomRight, Point* points,
-								int* count, Node* node );
-		void	_getRenderPoints( RenderPoint* points, int* count, Node* node );
-
+		void	_searchWindow( Point topLeft, Point bottomRight,
+								RenderPoint* points, int* count, Node* node );
 	public:
 
 		Tree( void );
 		Tree( string points );
 		~Tree( void );
 
-		int			size( void );
-		bool		has( Point p );
-		bool		insert( Point p, RenderPoint* renderPoint );
-		void		searchWindow( Point topLeft, Point bottomRight );
-		void		searchDirection( Point p, string direction );
-
-		RenderPoint*	getRenderPoints( void );
+		int				size( void );
+		bool			has( Point p );
+		bool			insert( Point p, RenderPoint* renderPoint );
+		void			clear( void );
+		RenderPoint*	searchWindow( Point topLeft, Point bottomRight );
+		RenderPoint*	searchDirection( Point p, string direction );
 
 };
 

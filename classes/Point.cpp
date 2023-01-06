@@ -29,8 +29,8 @@ Point::Point( string point ):
 
 Point::~Point( void ) {}
 
-Point&	Point::operator=( const Point& rhs )
-{
+Point&	Point::operator=( const Point& rhs ) {
+
 	if (this == &rhs)
 		return (*this);
 	_x = rhs._x;
@@ -38,8 +38,8 @@ Point&	Point::operator=( const Point& rhs )
 	return (*this);
 }
 
-ostream&	operator<<( ostream& output, const Point& rhs )
-{
+ostream&	operator<<( ostream& output, const Point& rhs ) {
+
 	output << "[" << rhs._x << ", " << rhs._y << "]";
 	return (output);
 }

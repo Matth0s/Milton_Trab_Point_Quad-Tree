@@ -30,8 +30,8 @@ Node::Node( Point center, Point topLeft, Point bottomRight ):
 
 Node::~Node( void ) {}
 
-Node&	Node::operator=( const Node& rhs )
-{
+Node&	Node::operator=( const Node& rhs ) {
+
 	if (this == &rhs)
 		return (*this);
 
@@ -47,8 +47,8 @@ Node&	Node::operator=( const Node& rhs )
 	return (*this);
 }
 
-ostream&	operator<<( ostream& output, const Node& rhs )
-{
+ostream&	operator<<( ostream& output, const Node& rhs ) {
+
 	output << rhs._center;
 	return (output);
 }

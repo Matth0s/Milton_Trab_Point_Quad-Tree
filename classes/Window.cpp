@@ -18,15 +18,16 @@
 
 Window::Window( void ):
 	_title(), _width(WIDTH + 20), _height(HEIGHT + 20), _closed(false),
-	_tree(nullptr),
-	_window(nullptr), _renderer(nullptr) {
+	_topLeft(0,0), _bottomRight(WIDTH, HEIGHT), _zoom(1),
+	_tree(nullptr), _window(nullptr), _renderer(nullptr) {
 
 	if (this->_init())
 		_closed = true;
 }
 
-Window::Window( string title, int width, int height, Tree* tree ):
-	_title(title), _width(width + 20), _height(height + 20), _closed(false),
+Window::Window( string title, Tree* tree ):
+	_title(title), _width(WIDTH + 20), _height(HEIGHT + 20), _closed(false),
+	_topLeft(0,0), _bottomRight(WIDTH, HEIGHT), _zoom(1),
 	_tree(tree), _window(nullptr), _renderer(nullptr) {
 
 	if (this->_init())
@@ -38,7 +39,6 @@ Window::~Window( void ) {
 	SDL_DestroyRenderer(_renderer);
 	SDL_DestroyWindow(_window);
 	SDL_Quit();
-
 }
 
 int		Window::_init( void ) {
@@ -59,11 +59,8 @@ int		Window::_init( void ) {
 		cout << "error: " << SDL_GetError() << endl;
 		return (3);
 	}
-	SDL_SetRenderDrawColor(_renderer, 255, 255, 255, 255);
-	SDL_RenderClear(_renderer);
-	SDL_RenderPresent(_renderer);
-	this->_drawBorder();
-	this->_drawTree();
+	this->_clearWindow();
+	this->_drawViewPoints();
 	return (0);
 }
 
@@ -71,37 +68,20 @@ bool	Window::isClosed( void ) {
 	return (_closed);
 }
 
-void	Window::_handleKeyDown( SDL_Keycode key ) {
-
-	switch (key) {
-		case SDLK_p:
-			if (_tree)
-				_tree->searchWindow(Point(0, 0), Point(WIDTH, HEIGHT));
-			break;
-		case SDLK_ESCAPE:
-			_closed = true;
-			break;
-		default:
-			break;
-	}
-
-}
-
 void	Window::pollEvents( void ) {
 
 	SDL_Event	event;
-	RenderPoint	point;
 
 	if (SDL_PollEvent(&event)) {
 		switch (event.type) {
 			case SDL_MOUSEBUTTONDOWN:
-				if (_tree->insert(Point(event.button.x - 10, event.button.y - 10), &point)) {
-					this->_drawPoint(point);
-					cout << point.center << endl;
-				}
+				this->_handleClick(event.button);
 				break;
 			case SDL_KEYDOWN:
 				this->_handleKeyDown(event.key.keysym.sym);
+				break;
+			case SDL_MOUSEWHEEL:
+				this->_handleWheel(event.wheel);
 				break;
 			case SDL_QUIT:
 				_closed = true;
@@ -110,7 +90,78 @@ void	Window::pollEvents( void ) {
 				break;
 		}
 	}
+}
 
+void	Window::_handleKeyDown( SDL_Keycode key ) {
+
+	RenderPoint*	points = nullptr;
+	int				count = 0;
+
+	switch (key) {
+		case SDLK_UP:
+			cout << "UP" << endl;
+			break;
+		case SDLK_DOWN:
+			cout << "DOWN" << endl;
+			break;
+		case SDLK_LEFT:
+			cout << "LEFT" << endl;
+			break;
+		case SDLK_RIGHT:
+			cout << "RIGHT" << endl;
+			break;
+		case SDLK_p:
+			if (_tree) {
+				points = _tree->searchWindow(Point(0, 0), Point(WIDTH, HEIGHT));
+				while (true) {
+					if (points[count].center.getX() == -1)
+						break;
+					cout << points[count].center << "   ";
+					count++;
+				}
+				if (count == 0)
+					cout << "!! Empty Tree !!";
+				cout << endl;
+				delete[] points;
+			}
+			break;
+		case SDLK_c:
+			_tree->clear();
+			this->_clearWindow();
+			break;
+		case SDLK_ESCAPE:
+			_closed = true;
+			break;
+		default:
+			break;
+	}
+}
+
+void	Window::_handleWheel( SDL_MouseWheelEvent wheel ) {
+
+	if(wheel.y > 0)
+		_zoom = (_zoom ) ? _zoom + 5 : _zoom + 5;
+	else if(wheel.y < 0)
+		_zoom = (_zoom - 5 > 1 ) ? _zoom - 5 : 1;
+	cout << "ZOOM: " << _zoom << endl;
+}
+
+void	Window::_handleClick( SDL_MouseButtonEvent click ) {
+
+	RenderPoint	point;
+
+	if (_tree->insert(Point(click.x - 10, click.y - 10), &point)) {
+		this->_drawViewPoints();
+		cout << point.center << endl;
+	}
+}
+
+void	Window::_clearWindow( void ) {
+
+	SDL_SetRenderDrawColor(_renderer, 255, 255, 255, 255);
+	SDL_RenderClear(_renderer);
+	SDL_RenderPresent(_renderer);
+	this->_drawBorder();
 }
 
 void	Window::_drawBorder( void ) {
@@ -133,7 +184,6 @@ void	Window::_drawBorder( void ) {
 	box.x = _width - 10 - box.w/2;
 	SDL_RenderFillRect(_renderer, &box);
 	SDL_RenderPresent(_renderer);
-
 }
 
 void	Window::_drawPoint( RenderPoint point ) {
@@ -162,13 +212,17 @@ void	Window::_drawPoint( RenderPoint point ) {
 	SDL_RenderPresent(_renderer);
 }
 
-void	Window::_drawTree( void ) {
+void	Window::_drawViewPoints( void ) {
 
-	RenderPoint*	points = _tree->getRenderPoints();
-	int				size = _tree->size();
+	RenderPoint*	points = _tree->searchWindow(_topLeft, _bottomRight);
+	int				count = 0;
 
-	while (size-- > 0)
-		this->_drawPoint(points[size]);
+	this->_drawBorder();
+	while (true) {
+		if (points[count].center.getX() == -1)
+			break;
+		this->_drawPoint(points[count]);
+		count++;
+	}
 	delete[] points;
-
 }

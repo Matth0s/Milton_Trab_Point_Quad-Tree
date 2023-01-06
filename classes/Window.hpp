@@ -27,10 +27,14 @@ class Window
 {
 	private:
 
-		string	_title;
-		int		_width;
-		int		_height;
-		bool	_closed;
+		string			_title;
+		int				_width;
+		int				_height;
+		bool			_closed;
+
+		Point			_topLeft;
+		Point			_bottomRight;
+		int				_zoom;
 
 		Tree*			_tree;
 		SDL_Window*		_window;
@@ -38,15 +42,18 @@ class Window
 
 		int		_init( void );
 		void	_handleKeyDown( SDL_Keycode key );
+		void	_handleWheel( SDL_MouseWheelEvent wheel );
+		void	_handleClick( SDL_MouseButtonEvent click );
 
+		void	_clearWindow( void );
 		void	_drawBorder( void );
 		void	_drawPoint( RenderPoint point );
-		void	_drawTree( void );
+		void	_drawViewPoints( void );
 
 	public:
 
 		Window( void );
-		Window( string title, int width, int height, Tree* tree);
+		Window( string title, Tree* tree);
 		~Window( void );
 
 		bool	isClosed( void );
