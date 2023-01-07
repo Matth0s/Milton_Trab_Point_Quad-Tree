@@ -17,8 +17,8 @@
 # include "Window.hpp"
 
 Window::Window( void ):
-	_title(), _closed(false), _zoom(1),
-	_topLeft(0,0), _bottomRight(WIDTH, HEIGHT),
+	_title(), _closed(false), _zoom(0),
+	_topLeft(-10 , -10), _bottomRight(WIDTH + 10, HEIGHT + 10),
 	_tree(nullptr), _window(nullptr), _renderer(nullptr) {
 
 	if (this->_init())
@@ -26,8 +26,8 @@ Window::Window( void ):
 }
 
 Window::Window( string title, Tree* tree ):
-	_title(title), _closed(false), _zoom(1),
-	_topLeft(0,0), _bottomRight(WIDTH, HEIGHT),
+	_title(title), _closed(false), _zoom(0),
+	_topLeft(-10 , -10), _bottomRight(WIDTH + 10, HEIGHT + 10),
 	_tree(tree), _window(nullptr), _renderer(nullptr) {
 
 	if (this->_init())
@@ -168,9 +168,9 @@ void	Window::_handleKeyDown( SDL_Keycode key ) {
 			this->_moveView(Point(21 - _zoom, 0), "+=");
 			break;
 		case SDLK_r:
-			_topLeft = Point(0, 0);
-			_bottomRight = Point(WIDTH, HEIGHT);
-			_zoom = 1;
+			_topLeft = Point(-10, -10);
+			_bottomRight = Point(WIDTH + 10, HEIGHT + 10);
+			_zoom = 0;
 			this->_clearWindow();
 			this->_drawViewPoints();
 			cout << "| Restart View" << endl;
