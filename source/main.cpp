@@ -18,24 +18,12 @@
 
 int	main(int argc, char *argv[]) {
 
-	(void) argc;
-	(void) argv;
-	//testePoint();
-	//testeTreeSearchWindow();
-	//testeTreeSearchDirection();
-	// testeDrawInWindow();
-	//testeReadFile(argc, argv);
-	//testeTreeByInputFile(argc, argv);
-	// testeWindow();
-	//testeWindowFileInput(argc, argv);
-
 	string	points;
 
 	if (getPointsInput(argc, argv, &points))
 		return (1);
 	Tree	quadTree(points);
 	Window	window("QuadTree", &quadTree);
-
 
 	while (!window.isClosed())
 		window.pollEvents();

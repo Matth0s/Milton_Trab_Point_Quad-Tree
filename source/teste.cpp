@@ -16,7 +16,7 @@
 
 # include "include.hpp"
 
-void	testePoint( void ) {
+static void	testePoint( void ) {
 
 	Point p(25, 25);
 	cout << Point(1, 3) << "   "
@@ -56,7 +56,7 @@ static void	printRenderPoints( RenderPoint* points ) {
 	delete[] points;
 }
 
-void	testeTreeSearchWindow( void ) {
+static void	testeTreeSearchWindow( void ) {
 
 	Tree	quadTree;
 
@@ -96,7 +96,7 @@ void	testeTreeSearchWindow( void ) {
 
 }
 
-void	testeTreeSearchDirection( void ) {
+static void	testeTreeSearchDirection( void ) {
 
 	Tree	quadTree;
 	quadTree.insert(Point(WIDTH/2,HEIGHT/2));
@@ -132,7 +132,7 @@ void	testeTreeSearchDirection( void ) {
 
 }
 
-void	drawBox( Sint32 x, Sint32 y, SDL_Surface* surface ) {
+static void	drawBox( Sint32 x, Sint32 y, SDL_Surface* surface ) {
 
 	SDL_Rect	box;
 
@@ -145,7 +145,7 @@ void	drawBox( Sint32 x, Sint32 y, SDL_Surface* surface ) {
 
 }
 
-void	testeDrawInWindow( void ) {
+static void	testeDrawInWindow( void ) {
 
 	SDL_Window*	window;
 	SDL_Surface* surface;
@@ -188,7 +188,7 @@ void	testeDrawInWindow( void ) {
 
 }
 
-void	testeReadFile( int argc, char *argv[] ) {
+static void	testeReadFile( int argc, char *argv[] ) {
 
 	string	points;
 
@@ -198,7 +198,7 @@ void	testeReadFile( int argc, char *argv[] ) {
 
 }
 
-void	testeTreeByInputFile( int argc, char *argv[] ) {
+static void	testeTreeByInputFile( int argc, char *argv[] ) {
 
 	string	points;
 
@@ -209,7 +209,7 @@ void	testeTreeByInputFile( int argc, char *argv[] ) {
 	delete[] quadTree.searchWindow(Point(0, 0), Point(WIDTH, HEIGHT));
 }
 
-void	testeWindow( void ) {
+static void	testeWindow( void ) {
 
 	Tree	quadTree;
 	Window	window("teste", &quadTree);
@@ -219,7 +219,7 @@ void	testeWindow( void ) {
 
 }
 
-void	testeWindowFileInput( int argc, char *argv[] ) {
+static void	testeWindowFileInput( int argc, char *argv[] ) {
 
 	string	points;
 
@@ -231,4 +231,19 @@ void	testeWindowFileInput( int argc, char *argv[] ) {
 	while (!window.isClosed())
 		window.pollEvents();
 
+}
+
+void	teste( int argc, char *argv[] ) {
+
+	(void) argc;
+	(void) argv;
+
+	testePoint();
+	testeTreeSearchWindow();
+	testeTreeSearchDirection();
+	testeDrawInWindow();
+	testeReadFile(argc, argv);
+	testeTreeByInputFile(argc, argv);
+	testeWindow();
+	testeWindowFileInput(argc, argv);
 }
