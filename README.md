@@ -1,8 +1,10 @@
 # Árvore Quad-tree
 
 ## Introdução:
-![quad-tree-gif](https://user-images.githubusercontent.com/48777468/211158857-58521313-d38e-4926-b021-3eb24df6089a.gif)
 
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/48777468/211158857-58521313-d38e-4926-b021-3eb24df6089a.gif" alt="quad-tree-gif" />
+</p>
 
 ## Topicos:
 
