@@ -45,6 +45,7 @@ class Window
 		void		_handleWheel( SDL_MouseWheelEvent wheel );
 		void		_handleClick( SDL_MouseButtonEvent click );
 
+		Point		_ScaledPointToRealPoint( Point point );
 		Point		_RealPointToScaledPoint( Point point );
 		RenderPoint	_RealPointToScaledPoint( RenderPoint point );
 

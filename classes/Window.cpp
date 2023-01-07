@@ -49,7 +49,7 @@ int		Window::_init( void ) {
 	}
 	_window = SDL_CreateWindow(_title.c_str(),
 		SDL_WINDOWPOS_CENTERED,	SDL_WINDOWPOS_CENTERED,
-		WIDTH + 20, HEIGHT + 20, SDL_WINDOW_SHOWN);
+		WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
 	if (!_window) {
 		cout << "error: " << SDL_GetError() << endl;
 		return (2);
@@ -176,12 +176,22 @@ void	Window::_handleClick( SDL_MouseButtonEvent click ) {
 	RenderPoint	point;
 	Point		scaledPoint;
 
-	scaledPoint = Point(click.x - 10, click.y - 10);
+	scaledPoint = _ScaledPointToRealPoint(Point(click.x, click.y));
 	cout << scaledPoint << endl;
 	if (_tree->insert(scaledPoint, &point)) {
 		this->_drawViewPoints();
 		cout << point.center << endl;
 	}
+}
+
+Point	Window::_ScaledPointToRealPoint( Point point ) {
+
+	double	x;
+	double	y;
+
+	x = point.getX() * (_bottomRight.getX() - _topLeft.getX()) / WIDTH;
+	y = point.getY() * (_bottomRight.getY() - _topLeft.getY()) / HEIGHT;
+	return (Point(x + _topLeft.getX(), y + _topLeft.getY()));
 }
 
 Point	Window::_RealPointToScaledPoint( Point point ) {
@@ -236,7 +246,7 @@ void	Window::_drawBorder( void ) {
 
 	w = WIDTH * WIDTH / (_bottomRight.getX() - _topLeft.getX());
 	h = HEIGHT * HEIGHT / (_bottomRight.getY() - _topLeft.getY());
-	center = this->_RealPointToScaledPoint(Point((WIDTH + 20)/2, (HEIGHT + 20)/2));
+	center = this->_RealPointToScaledPoint(Point((WIDTH)/2, (HEIGHT)/2));
 
 	SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
 	this->_drawBox(w + 4, 5, center.getX(), center.getY() - h/2);
@@ -255,14 +265,13 @@ void	Window::_drawPoint( RenderPoint point ) {
 	p = this->_RealPointToScaledPoint(point);
 	width = p.bottomRight.getX() - p.topLeft.getX();
 	height = p.bottomRight.getY() - p.topLeft.getY();
-
 	SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
-	this->_drawBox(width, 3, p.topLeft.getX() + 10 + width/2, p.center.getY() + 10);
-	this->_drawBox(3, height, p.center.getX() + 10, p.topLeft.getY() + 10 + height/2);
+	this->_drawBox(width, 3, p.topLeft.getX() + width/2, p.center.getY());
+	this->_drawBox(3, height, p.center.getX(), p.topLeft.getY() + height/2);
 	SDL_RenderPresent(_renderer);
 
 	SDL_SetRenderDrawColor(_renderer, 255, 0, 0, 255);
-	this->_drawBox(5, 5, p.center.getX() + 10, p.center.getY() + 10);
+	this->_drawBox(5, 5, p.center.getX(), p.center.getY());
 	SDL_RenderPresent(_renderer);
 }
 
