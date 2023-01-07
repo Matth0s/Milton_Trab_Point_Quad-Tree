@@ -60,11 +60,11 @@ void	testeTreeSearchWindow( void ) {
 
 	Tree	quadTree;
 
-	quadTree.insert(Point(WIDTH/2,HEIGHT/2), NULL);
-	quadTree.insert(Point(WIDTH/4, HEIGHT/4), NULL);
-	quadTree.insert(Point(WIDTH/4 * 3,  HEIGHT/4), NULL);
-	quadTree.insert(Point(WIDTH/4 * 3, HEIGHT/4 * 3), NULL);
-	quadTree.insert(Point(WIDTH/4, HEIGHT/4 * 3), NULL);
+	quadTree.insert(Point(WIDTH/2,HEIGHT/2));
+	quadTree.insert(Point(WIDTH/4, HEIGHT/4));
+	quadTree.insert(Point(WIDTH/4 * 3,  HEIGHT/4));
+	quadTree.insert(Point(WIDTH/4 * 3, HEIGHT/4 * 3));
+	quadTree.insert(Point(WIDTH/4, HEIGHT/4 * 3));
 
 	cout << "Printa Todo Mundo " << endl;
 	printRenderPoints(quadTree.searchWindow(Point(0, 0), Point(WIDTH, HEIGHT)));
@@ -99,11 +99,11 @@ void	testeTreeSearchWindow( void ) {
 void	testeTreeSearchDirection( void ) {
 
 	Tree	quadTree;
-	quadTree.insert(Point(WIDTH/2,HEIGHT/2), NULL);
-	quadTree.insert(Point(WIDTH/4, HEIGHT/4), NULL);
-	quadTree.insert(Point(WIDTH/4 * 3,  HEIGHT/4), NULL);
-	quadTree.insert(Point(WIDTH/4 * 3, HEIGHT/4 * 3), NULL);
-	quadTree.insert(Point(WIDTH/4, HEIGHT/4 * 3), NULL);
+	quadTree.insert(Point(WIDTH/2,HEIGHT/2));
+	quadTree.insert(Point(WIDTH/4, HEIGHT/4));
+	quadTree.insert(Point(WIDTH/4 * 3,  HEIGHT/4));
+	quadTree.insert(Point(WIDTH/4 * 3, HEIGHT/4 * 3));
+	quadTree.insert(Point(WIDTH/4, HEIGHT/4 * 3));
 
 	cout << "Primeiro Quadrante" << endl;
 	printRenderPoints(quadTree.searchDirection(Point(WIDTH/2, HEIGHT/2), "NW"));

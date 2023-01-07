@@ -27,7 +27,7 @@ Tree::Tree( string points ): _root(nullptr), _size(0) {
 	while (points.size() != 0) {
 		index = (points.find_first_of(" ") != string::npos)
 				? points.find_first_of(" ") : points.size();
-		this->insert( Point(points.substr(0, index)), NULL );
+		this->insert( Point(points.substr(0, index)));
 		points = points.substr(index + 1, points.size());
 	}
 }
@@ -77,14 +77,14 @@ bool	Tree::has( Point p ) {
 }
 
 
-bool	Tree::insert( Point p, RenderPoint* renderPoint ) {
+bool	Tree::insert( Point p ) {
 
 	Node*	node;
 	Node*	newNode;
 	string	direction;
 
 	if (this->has(p)
-		|| p.getX() < 0|| p.getX() > WIDTH || p.getX() < 0 || p.getY() > HEIGHT )
+		|| p.getX() < 0|| p.getX() > WIDTH || p.getY() < 0 || p.getY() > HEIGHT)
 		return (false);
 	if (!_root) {
 		newNode = new Node(p, Point(0, 0), Point(WIDTH, HEIGHT));
@@ -111,11 +111,6 @@ bool	Tree::insert( Point p, RenderPoint* renderPoint ) {
 			newNode = new Node(p, node->_center, node->_bottomRight);
 			node->_southEast = newNode;
 		}
-	}
-	if (renderPoint) {
-		renderPoint->center = newNode->_center;
-		renderPoint->topLeft = newNode->_topLeft;
-		renderPoint->bottomRight = newNode->_bottomRight;
 	}
 	_size++;
 	return (true);

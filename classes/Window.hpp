@@ -41,6 +41,8 @@ class Window
 	private:
 
 		int			_init( void );
+		void		_moveView( Point point, string operatorSimbol );
+		void		_printPoints( void );
 		void		_handleKeyDown( SDL_Keycode key );
 		void		_handleWheel( SDL_MouseWheelEvent wheel );
 		void		_handleClick( SDL_MouseButtonEvent click );

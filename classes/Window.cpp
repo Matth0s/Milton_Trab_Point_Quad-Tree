@@ -92,35 +92,55 @@ void	Window::pollEvents( void ) {
 	}
 }
 
-void	Window::_handleKeyDown( SDL_Keycode key ) {
+void	Window::_moveView( Point point, string operatorSimbol ) {
+
+	if (operatorSimbol == "+=") {
+		_topLeft += point;
+		_bottomRight += point;
+	}
+	else {
+		_topLeft -= point;
+		_bottomRight -= point;
+	}
+	this->_clearWindow();
+	this->_drawViewPoints();
+}
+
+void	Window::_printPoints( void ) {
 
 	RenderPoint*	points = nullptr;
 	int				count = 0;
 
+	if (_tree) {
+		cout << "Points in QuadTree:   ";
+		points = _tree->searchWindow(Point(0, 0), Point(WIDTH, HEIGHT));
+		while (true) {
+			if (points[count].center.getX() == -1)
+				break;
+			cout << points[count].center << "   ";
+			count++;
+		}
+		if (count == 0)
+			cout << "!! Empty Tree !!";
+		cout << endl;
+		delete[] points;
+	}
+}
+
+void	Window::_handleKeyDown( SDL_Keycode key ) {
+
 	switch (key) {
 		case SDLK_UP:
-			_topLeft -= Point(0, 20 - _zoom);
-			_bottomRight -= Point(0, 20 - _zoom);
-			this->_clearWindow();
-			this->_drawViewPoints();
+			this->_moveView(Point(0, 21 - _zoom), "-=");
 			break;
 		case SDLK_DOWN:
-			_topLeft += Point(0, 20 - _zoom);
-			_bottomRight += Point(0, 20 - _zoom);
-			this->_clearWindow();
-			this->_drawViewPoints();
+			this->_moveView(Point(0, 21 - _zoom), "+=");
 			break;
 		case SDLK_LEFT:
-			_topLeft -= Point(20 - _zoom, 0);
-			_bottomRight -= Point(20 - _zoom, 0);
-			this->_clearWindow();
-			this->_drawViewPoints();
+			this->_moveView(Point(21 - _zoom, 0), "-=");
 			break;
 		case SDLK_RIGHT:
-			_topLeft += Point(20 - _zoom, 0);
-			_bottomRight += Point(20 - _zoom, 0);
-			this->_clearWindow();
-			this->_drawViewPoints();
+			this->_moveView(Point(21 - _zoom, 0), "+=");
 			break;
 		case SDLK_r:
 			_topLeft = Point(0, 0);
@@ -130,19 +150,7 @@ void	Window::_handleKeyDown( SDL_Keycode key ) {
 			this->_drawViewPoints();
 			break;
 		case SDLK_p:
-			if (_tree) {
-				points = _tree->searchWindow(Point(0, 0), Point(WIDTH, HEIGHT));
-				while (true) {
-					if (points[count].center.getX() == -1)
-						break;
-					cout << points[count].center << "   ";
-					count++;
-				}
-				if (count == 0)
-					cout << "!! Empty Tree !!";
-				cout << endl;
-				delete[] points;
-			}
+			this->_printPoints();
 			break;
 		case SDLK_c:
 			_tree->clear();
@@ -167,20 +175,19 @@ void	Window::_handleWheel( SDL_MouseWheelEvent wheel ) {
 		_bottomRight += Point(20, 20 * HEIGHT / WIDTH);
 		_zoom--;
 	}
+	cout << "Zoom:  " << _zoom << "x" << endl;
 	this->_clearWindow();
 	this->_drawViewPoints();
 }
 
 void	Window::_handleClick( SDL_MouseButtonEvent click ) {
 
-	RenderPoint	point;
 	Point		scaledPoint;
 
 	scaledPoint = _ScaledPointToRealPoint(Point(click.x, click.y));
-	cout << scaledPoint << endl;
-	if (_tree->insert(scaledPoint, &point)) {
+	if (_tree->insert(scaledPoint)) {
 		this->_drawViewPoints();
-		cout << point.center << endl;
+		cout << "New Point:  " << scaledPoint << endl;
 	}
 }
 
@@ -266,8 +273,12 @@ void	Window::_drawPoint( RenderPoint point ) {
 	width = p.bottomRight.getX() - p.topLeft.getX();
 	height = p.bottomRight.getY() - p.topLeft.getY();
 	SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
+	this->_drawBox(width, 3, p.topLeft.getX() + width/2, p.topLeft.getY());
 	this->_drawBox(width, 3, p.topLeft.getX() + width/2, p.center.getY());
+	this->_drawBox(width, 3, p.topLeft.getX() + width/2, p.bottomRight.getY());
+	this->_drawBox(3, height, p.topLeft.getX(), p.topLeft.getY() + height/2);
 	this->_drawBox(3, height, p.center.getX(), p.topLeft.getY() + height/2);
+	this->_drawBox(3, height, p.bottomRight.getX(), p.topLeft.getY() + height/2);
 	SDL_RenderPresent(_renderer);
 
 	SDL_SetRenderDrawColor(_renderer, 255, 0, 0, 255);

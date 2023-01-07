@@ -24,10 +24,10 @@ static int	validatePoint( string point ) {
 	if (point.find_first_of(",") == string::npos)
 		return (1);
 	x = point.substr(0, point.find_first_of(","));
-	if (x.size() == 0 || x.find_first_not_of("0123456789") != string::npos)
+	if (x.size() == 0 || x.find_first_not_of("0123456789.") != string::npos)
 		return (1);
 	y = point.substr(point.find_first_of(",") + 1, point.size());
-	if (y.size() == 0 || y.find_first_not_of("0123456789") != string::npos)
+	if (y.size() == 0 || y.find_first_not_of("0123456789.") != string::npos)
 		return (1);
 	return (0);
 }

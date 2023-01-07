@@ -23,8 +23,8 @@ Point::Point( const Point& src ): _x(src._x), _y(src._y) {}
 Point::Point( double x, double y ): _x(x), _y(y) {}
 
 Point::Point( string point ):
-	_x(atoi(point.substr(0, point.find_first_of(",")).c_str())),
-	_y(atoi(point.substr(point.find_first_of(",") + 1, point.size()).c_str()))
+	_x(strtod(point.substr(0, point.find_first_of(",")).c_str(), NULL)),
+	_y(strtod(point.substr(point.find_first_of(",") + 1, point.size()).c_str(), NULL))
 	{}
 
 Point::~Point( void ) {}

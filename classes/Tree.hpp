@@ -53,7 +53,7 @@ class Tree
 
 		int				size( void );
 		bool			has( Point p );
-		bool			insert( Point p, RenderPoint* renderPoint );
+		bool			insert( Point p );
 		void			clear( void );
 		RenderPoint*	searchWindow( Point topLeft, Point bottomRight );
 		RenderPoint*	searchDirection( Point p, string direction );
