@@ -22,23 +22,23 @@
 # include <SDL2/SDL_timer.h>
 
 # include "Tree.hpp"
+# include <cmath>
 
 class Window
 {
 	private:
 
 		string			_title;
-		int				_width;
-		int				_height;
 		bool			_closed;
-
+		int				_zoom;
 		Point			_topLeft;
 		Point			_bottomRight;
-		int				_zoom;
 
 		Tree*			_tree;
 		SDL_Window*		_window;
 		SDL_Renderer*	_renderer;
+
+	private:
 
 		int			_init( void );
 		void		_handleKeyDown( SDL_Keycode key );
@@ -49,6 +49,7 @@ class Window
 		RenderPoint	_RealPointToScaledPoint( RenderPoint point );
 
 		void		_clearWindow( void );
+		void		_drawBox( double w, double h, double x, double y );
 		void		_drawBorder( void );
 		void		_drawPoint( RenderPoint point );
 		void		_drawViewPoints( void );

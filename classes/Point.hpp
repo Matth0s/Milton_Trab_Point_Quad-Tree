@@ -26,14 +26,14 @@ class Point
 {
 	private:
 
-		int	_x;
-		int	_y;
+		double	_x;
+		double	_y;
 
 	public:
 
 		Point( void );
 		Point( const Point& src );
-		Point( int x, int y );
+		Point( double x, double y );
 		Point( string point );
 		~Point( void );
 
@@ -41,12 +41,11 @@ class Point
 		Point&	operator+=( const Point& rhs );
 		Point&	operator-=( const Point& rhs );
 
-		friend	ostream&	operator<<( ostream& output, const Point& rhs );
-
-		int		getX( void );
-		int		getY( void );
-
+		double	getX( void );
+		double	getY( void );
 		string	relativePosition( Point p );
+
+		friend	ostream&	operator<<( ostream& output, const Point& rhs );
 };
 
 #endif

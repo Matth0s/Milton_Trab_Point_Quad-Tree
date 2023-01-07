@@ -20,7 +20,7 @@ Point::Point( void ): _x(0), _y(0) {}
 
 Point::Point( const Point& src ): _x(src._x), _y(src._y) {}
 
-Point::Point( int x, int y ): _x(x), _y(y) {}
+Point::Point( double x, double y ): _x(x), _y(y) {}
 
 Point::Point( string point ):
 	_x(atoi(point.substr(0, point.find_first_of(",")).c_str())),
@@ -58,11 +58,11 @@ ostream&	operator<<( ostream& output, const Point& rhs ) {
 	return (output);
 }
 
-int	Point::getX( void ) {
+double	Point::getX( void ) {
 	return (_x);
 }
 
-int	Point::getY( void ) {
+double	Point::getY( void ) {
 	return (_y);
 }
 

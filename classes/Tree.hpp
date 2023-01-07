@@ -57,7 +57,6 @@ class Tree
 		void			clear( void );
 		RenderPoint*	searchWindow( Point topLeft, Point bottomRight );
 		RenderPoint*	searchDirection( Point p, string direction );
-
 };
 
 #endif

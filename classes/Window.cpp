@@ -17,8 +17,8 @@
 # include "Window.hpp"
 
 Window::Window( void ):
-	_title(), _width(WIDTH + 20), _height(HEIGHT + 20), _closed(false),
-	_topLeft(0,0), _bottomRight(WIDTH, HEIGHT), _zoom(1),
+	_title(), _closed(false), _zoom(1),
+	_topLeft(0,0), _bottomRight(WIDTH, HEIGHT),
 	_tree(nullptr), _window(nullptr), _renderer(nullptr) {
 
 	if (this->_init())
@@ -26,8 +26,8 @@ Window::Window( void ):
 }
 
 Window::Window( string title, Tree* tree ):
-	_title(title), _width(WIDTH + 20), _height(HEIGHT + 20), _closed(false),
-	_topLeft(0,0), _bottomRight(WIDTH, HEIGHT), _zoom(1),
+	_title(title), _closed(false), _zoom(1),
+	_topLeft(0,0), _bottomRight(WIDTH, HEIGHT),
 	_tree(tree), _window(nullptr), _renderer(nullptr) {
 
 	if (this->_init())
@@ -49,7 +49,7 @@ int		Window::_init( void ) {
 	}
 	_window = SDL_CreateWindow(_title.c_str(),
 		SDL_WINDOWPOS_CENTERED,	SDL_WINDOWPOS_CENTERED,
-		_width, _height, SDL_WINDOW_SHOWN);
+		WIDTH + 20, HEIGHT + 20, SDL_WINDOW_SHOWN);
 	if (!_window) {
 		cout << "error: " << SDL_GetError() << endl;
 		return (2);
@@ -158,15 +158,13 @@ void	Window::_handleKeyDown( SDL_Keycode key ) {
 
 void	Window::_handleWheel( SDL_MouseWheelEvent wheel ) {
 
-	int	scale = 20;
-
 	if(wheel.y > 0 && _bottomRight.getX() - _topLeft.getX() > 40) {
-		_topLeft += Point(scale, scale * HEIGHT/WIDTH);
-		_bottomRight -= Point(scale, scale * HEIGHT/WIDTH);
+		_topLeft += Point(20, 20 * HEIGHT / WIDTH);
+		_bottomRight -= Point(20, 20 * HEIGHT / WIDTH);
 		_zoom++;
 	} else if(wheel.y < 0) {
-		_topLeft -= Point(scale, scale * HEIGHT/WIDTH);
-		_bottomRight += Point(scale, scale * HEIGHT/WIDTH);
+		_topLeft -= Point(20, 20 * HEIGHT / WIDTH);
+		_bottomRight += Point(20, 20 * HEIGHT / WIDTH);
 		_zoom--;
 	}
 	this->_clearWindow();
@@ -178,7 +176,6 @@ void	Window::_handleClick( SDL_MouseButtonEvent click ) {
 	RenderPoint	point;
 	Point		scaledPoint;
 
-
 	scaledPoint = Point(click.x - 10, click.y - 10);
 	cout << scaledPoint << endl;
 	if (_tree->insert(scaledPoint, &point)) {
@@ -189,13 +186,13 @@ void	Window::_handleClick( SDL_MouseButtonEvent click ) {
 
 Point	Window::_RealPointToScaledPoint( Point point ) {
 
-	int	x;
-	int	y;
+	double	x;
+	double	y;
 
 	x = (point.getX() - _topLeft.getX()) * WIDTH
-			/ (_bottomRight.getX() - _topLeft.getX());
+		/ (_bottomRight.getX() - _topLeft.getX());
 	y = (point.getY() - _topLeft.getY()) * HEIGHT
-			/ (_bottomRight.getY() - _topLeft.getY());
+		/ (_bottomRight.getY() - _topLeft.getY());
 	return (Point(x, y));
 }
 
@@ -220,59 +217,52 @@ void	Window::_clearWindow( void ) {
 	this->_drawBorder();
 }
 
-void	Window::_drawBorder( void ) {
+void	Window::_drawBox( double w, double h, double x, double y ) {
 
 	SDL_Rect	box;
+
+	box.w = round(w);
+	box.h = round(h);
+	box.x = round(x - w/2);
+	box.y = round(y - h/2);
+	SDL_RenderFillRect(_renderer, &box);
+}
+
+void	Window::_drawBorder( void ) {
+
 	Point		center;
 	int			w;
 	int			h;
 
 	w = WIDTH * WIDTH / (_bottomRight.getX() - _topLeft.getX());
 	h = HEIGHT * HEIGHT / (_bottomRight.getY() - _topLeft.getY());
-	center = this->_RealPointToScaledPoint(Point(_width/2,_height/2));
+	center = this->_RealPointToScaledPoint(Point((WIDTH + 20)/2, (HEIGHT + 20)/2));
 
 	SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
-	box.w = w + 4;
-	box.h = 5;
-	box.x = center.getX() - box.w/2;
-	box.y = center.getY() - h/2 - box.h/2;
-	SDL_RenderFillRect(_renderer, &box);
-	box.y = center.getY() + h/2 - box.h/2;
-	SDL_RenderFillRect(_renderer, &box);
-	box.w = 5;
-	box.h = h + 4;
-	box.y = center.getY() - box.h/2;
-	box.x = center.getX() - w/2 - box.w/2;
-	SDL_RenderFillRect(_renderer, &box);
-	box.x = center.getX() + w/2 - box.w/2;
-	SDL_RenderFillRect(_renderer, &box);
+	this->_drawBox(w + 4, 5, center.getX(), center.getY() - h/2);
+	this->_drawBox(w + 4, 5, center.getX(), center.getY() + h/2);
+	this->_drawBox(5, h + 4, center.getX() - w/2, center.getY());
+	this->_drawBox(5, h + 4, center.getX() + w/2, center.getY());
 	SDL_RenderPresent(_renderer);
 }
 
 void	Window::_drawPoint( RenderPoint point ) {
 
-	SDL_Rect	box;
 	RenderPoint	p;
+	double		width;
+	double		height;
 
 	p = this->_RealPointToScaledPoint(point);
+	width = p.bottomRight.getX() - p.topLeft.getX();
+	height = p.bottomRight.getY() - p.topLeft.getY();
+
 	SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
-	box.w = p.bottomRight.getX() - p.topLeft.getX();
-	box.h = 3;
-	box.x = p.topLeft.getX() + 10;
-	box.y = p.center.getY() + 10 - box.h/2;
-	SDL_RenderFillRect(_renderer, &box);
-	box.w = 3;
-	box.h = p.bottomRight.getY() - p.topLeft.getY();
-	box.x = p.center.getX() + 10 - box.w/2;
-	box.y = p.topLeft.getY() + 10;
-	SDL_RenderFillRect(_renderer, &box);
+	this->_drawBox(width, 3, p.topLeft.getX() + 10 + width/2, p.center.getY() + 10);
+	this->_drawBox(3, height, p.center.getX() + 10, p.topLeft.getY() + 10 + height/2);
 	SDL_RenderPresent(_renderer);
+
 	SDL_SetRenderDrawColor(_renderer, 255, 0, 0, 255);
-	box.w = 5;
-	box.h = 5;
-	box.x = p.center.getX() + 10 - box.w/2;
-	box.y = p.center.getY() + 10 - box.h/2;
-	SDL_RenderFillRect(_renderer, &box);
+	this->_drawBox(5, 5, p.center.getX() + 10, p.center.getY() + 10);
 	SDL_RenderPresent(_renderer);
 }
 
