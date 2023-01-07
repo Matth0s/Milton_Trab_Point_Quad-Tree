@@ -104,6 +104,10 @@ void	Window::_moveView( Point point, string operatorSimbol ) {
 	}
 	this->_clearWindow();
 	this->_drawViewPoints();
+	cout << "| Center View:  " << "("
+		<< _topLeft.getX() + (_bottomRight.getX() - _topLeft.getX())/2 << ", "
+		<< _topLeft.getY() + (_bottomRight.getY() - _topLeft.getY())/2 << ")"
+		<< endl;
 }
 
 void	Window::_printPoints( void ) {
@@ -112,7 +116,7 @@ void	Window::_printPoints( void ) {
 	int				count = 0;
 
 	if (_tree) {
-		cout << "Points in QuadTree:   ";
+		cout << "| Points in QuadTree:   ";
 		points = _tree->searchWindow(Point(0, 0), Point(WIDTH, HEIGHT));
 		while (true) {
 			if (points[count].center.getX() == -1)
@@ -122,6 +126,27 @@ void	Window::_printPoints( void ) {
 		}
 		if (count == 0)
 			cout << "!! Empty Tree !!";
+		cout << endl;
+		delete[] points;
+	}
+}
+
+void	Window::_printViewPoints( void ) {
+
+	RenderPoint*	points = nullptr;
+	int				count = 0;
+
+	if (_tree) {
+		cout << "| Points in View:   ";
+		points = _tree->searchWindow(_topLeft, _bottomRight);
+		while (true) {
+			if (points[count].center.getX() == -1)
+				break;
+			cout << points[count].center << "   ";
+			count++;
+		}
+		if (count == 0)
+			cout << "!! Empty View !!";
 		cout << endl;
 		delete[] points;
 	}
@@ -148,13 +173,18 @@ void	Window::_handleKeyDown( SDL_Keycode key ) {
 			_zoom = 1;
 			this->_clearWindow();
 			this->_drawViewPoints();
+			cout << "| Restart View" << endl;
 			break;
 		case SDLK_p:
 			this->_printPoints();
 			break;
+		case SDLK_v:
+			this->_printViewPoints();
+			break;
 		case SDLK_c:
 			_tree->clear();
 			this->_clearWindow();
+			cout << "| Clear Points" << endl;
 			break;
 		case SDLK_ESCAPE:
 			_closed = true;
@@ -175,7 +205,7 @@ void	Window::_handleWheel( SDL_MouseWheelEvent wheel ) {
 		_bottomRight += Point(20, 20 * HEIGHT / WIDTH);
 		_zoom--;
 	}
-	cout << "Zoom:  " << _zoom << "x" << endl;
+	cout << "| Zoom:  " << _zoom << "x" << endl;
 	this->_clearWindow();
 	this->_drawViewPoints();
 }
@@ -187,7 +217,7 @@ void	Window::_handleClick( SDL_MouseButtonEvent click ) {
 	scaledPoint = _ScaledPointToRealPoint(Point(click.x, click.y));
 	if (_tree->insert(scaledPoint)) {
 		this->_drawViewPoints();
-		cout << "New Point:  " << scaledPoint << endl;
+		cout << "| New Point:  " << scaledPoint << endl;
 	}
 }
 
