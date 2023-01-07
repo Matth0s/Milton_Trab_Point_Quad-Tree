@@ -38,6 +38,20 @@ Point&	Point::operator=( const Point& rhs ) {
 	return (*this);
 }
 
+Point&	Point::operator+=( const Point& rhs ) {
+
+	_x += rhs._x;
+	_y += rhs._y;
+	return (*this);
+}
+
+Point&	Point::operator-=( const Point& rhs ) {
+
+	_x -= rhs._x;
+	_y -= rhs._y;
+	return (*this);
+}
+
 ostream&	operator<<( ostream& output, const Point& rhs ) {
 
 	output << "[" << rhs._x << ", " << rhs._y << "]";

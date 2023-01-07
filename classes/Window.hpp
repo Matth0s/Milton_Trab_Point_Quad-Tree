@@ -40,15 +40,18 @@ class Window
 		SDL_Window*		_window;
 		SDL_Renderer*	_renderer;
 
-		int		_init( void );
-		void	_handleKeyDown( SDL_Keycode key );
-		void	_handleWheel( SDL_MouseWheelEvent wheel );
-		void	_handleClick( SDL_MouseButtonEvent click );
+		int			_init( void );
+		void		_handleKeyDown( SDL_Keycode key );
+		void		_handleWheel( SDL_MouseWheelEvent wheel );
+		void		_handleClick( SDL_MouseButtonEvent click );
 
-		void	_clearWindow( void );
-		void	_drawBorder( void );
-		void	_drawPoint( RenderPoint point );
-		void	_drawViewPoints( void );
+		Point		_RealPointToScaledPoint( Point point );
+		RenderPoint	_RealPointToScaledPoint( RenderPoint point );
+
+		void		_clearWindow( void );
+		void		_drawBorder( void );
+		void		_drawPoint( RenderPoint point );
+		void		_drawViewPoints( void );
 
 	public:
 

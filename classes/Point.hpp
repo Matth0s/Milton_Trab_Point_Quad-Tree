@@ -38,10 +38,13 @@ class Point
 		~Point( void );
 
 		Point&	operator=( const Point& rhs );
+		Point&	operator+=( const Point& rhs );
+		Point&	operator-=( const Point& rhs );
+
 		friend	ostream&	operator<<( ostream& output, const Point& rhs );
 
-		int	getX( void );
-		int	getY( void );
+		int		getX( void );
+		int		getY( void );
 
 		string	relativePosition( Point p );
 };
